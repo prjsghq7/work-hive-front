@@ -1,0 +1,79 @@
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: #0f172a;
+    color: #e5e7eb;
+    padding: 16px 12px;
+    box-sizing: border-box;
+}
+
+.sidebar-logo {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sidebar-group {
+    margin-bottom: 6px;
+}
+
+/* 메인 메뉴 버튼 */
+.sidebar-main-item {
+    width: 100%;
+    padding: 8px 10px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.sidebar-main-item:hover {
+    background: rgba(148, 163, 184, 0.15);
+}
+
+.sidebar-main-item.open {
+    background: rgba(148, 163, 184, 0.2);
+}
+
+.sidebar-arrow {
+    font-size: 12px;
+}
+
+/* 서브 메뉴 영역 */
+.sidebar-submenu {
+    margin-top: 2px;
+    padding-left: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 서브 메뉴 항목 */
+.sidebar-sub-item {
+    font-size: 13px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #cbd5f5;
+    margin-bottom: 2px;
+}
+
+.sidebar-sub-item:hover {
+    background: rgba(148, 163, 184, 0.18);
+}
+
+.sidebar-sub-item.active {
+    background: #2563eb;
+    color: #f9fafb;
+}
