@@ -37,6 +37,16 @@ export default function Sidebar() {
                 { label: "연차 신청", path: "/leave/request" },
                 { label: "연차 이력", path: "/leave/history" }
             ]
+        },
+        {
+            type: "group",
+            id: "board",
+            title: "게시판",
+            children: [
+                { label: "전체보기", path: "/board/all" },
+                { label: "공지사항", path: "/board/notice" },
+                { label: "경조사 관련", path: "/board/family-event" }
+            ]
         }
     ];
 
