@@ -1,4 +1,5 @@
 import { test } from "../services/test/testService.js";
+import "./Home.min.css";
 
 function Home() {
     const handleTestClick = async () => {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "./Sidebar.css";
+import "./Sidebar.min.css";
 
 export default function Sidebar() {
     const location = useLocation();
