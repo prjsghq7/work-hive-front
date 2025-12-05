@@ -14,12 +14,7 @@ export default function Sidebar() {
         {
             type: "single",
             label: "Login",
-            path: "/login"
-        },
-        {
-            type: "single",
-            label: "About",
-            path: "/about"
+            path: "/user/login"
         },
 
 
