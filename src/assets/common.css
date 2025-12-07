@@ -1,3 +1,54 @@
+* {
+  box-sizing: border-box;
+}
 
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  font-family: "Pretendard", sans-serif;
+  margin-block: 0;
+  margin-inline: 0;
+  user-select: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button, input, textarea, select {
+  border: none;
+  font: inherit;
+  margin: 0;
+  margin-inline: 0;
+  margin-block: 0;
+  outline: none;
+  padding: 0;
+  padding-inline: 0;
+  padding-block: 0;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin-block: 0;
+  margin-inline: 0;
+  padding-block: 0;
+  padding-inline: 0;
+}
+
+img {
+  -webkit-user-drag: none;
+  max-width: 100%;
+  height: auto;
+}
+
+ol, ul {
+  list-style-type: none;
+  margin-block: 0;
+  margin-inline: 0;
+  padding-inline: 0;
+}
 
 /*# sourceMappingURL=Common.css.map */
