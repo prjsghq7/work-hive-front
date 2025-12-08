@@ -16,8 +16,11 @@ export default function Sidebar() {
             label: "Login",
             path: "/user/login"
         },
-
-
+        {
+          type:"single",
+          label:"회원가입",
+          path:"/user/register"
+        },
         {
             type: "group",
             id: "user",

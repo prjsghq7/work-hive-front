@@ -1,12 +1,14 @@
 import "./Home.min.css";
 import {useApi} from "../hooks/useApi.js";
-import {testApiInfo} from "../services/test/testService.js";
+import { testService} from "../services/test/testService.js";
 function Home() {
-    const {data,error,loading,callApi,reset} = useApi();
+    // const {data,error,loading,callApi,reset} = useApi();
+    const {data,error,loading,run,reset} = useApi();
     const handleTestClick = async () => {
         try {
             reset();
-            const res = await callApi(testApiInfo.api, testApiInfo.method);
+            const res = await run(() => testService.test());
+            // const res = await callApi(testApiInfo.api, testApiInfo.method);
             console.log("test 응답:", res);
             alert("요청 성공 콘솔 확인");
         } catch (err) {
