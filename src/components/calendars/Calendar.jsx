@@ -16,7 +16,7 @@ export default function Calendar({ events }) {
             events={events}
             height="auto"
             headerToolbar={{
-                left: "",
+                left: "title",
                 center: "",
                 right: "today prev,next"
             }}
