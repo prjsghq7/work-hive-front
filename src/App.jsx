@@ -7,6 +7,7 @@ import Login from "./pages/user/Login.jsx";
 import BoardAll from "./pages/board/all/BoardAll.jsx";
 import BoardNotice from "./pages/board/notice/BoardNotice.jsx";
 import BoardFamilyEvent from "./pages/board/familyEvent/BoardFamilyEvent.jsx";
+import BoardNew from "./pages/board/new/BoardNew.jsx";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                     <Route path="board/all" element={<BoardAll/>}></Route>
                     <Route path="board/notice" element={<BoardNotice/>}></Route>
                     <Route path="board/family-event" element={<BoardFamilyEvent/>}></Route>
+                    <Route path="board/new" element={<BoardNew/>}></Route>
                 </Route>
 
                 <Route path="/user/login" element={<Login />} />

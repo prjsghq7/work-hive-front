@@ -1,7 +1,9 @@
+@import "../../assets/Common.scss";
+
 .sidebar {
   width: 240px;
   height: 100vh;
-  background: #0f172a;
+  background: $global-color-deep-dark;
   color: #e5e7eb;
   padding: 16px 12px;
   box-sizing: border-box;

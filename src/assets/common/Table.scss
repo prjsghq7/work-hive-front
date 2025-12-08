@@ -1,104 +1,136 @@
+@import "../Common.scss";
+
 .board-container {
   padding: 2rem;
-}
 
-.board-search-box {
-  display: flex;
-  max-width: 30rem;
-  margin-bottom: 2rem;
-  height: 3rem;
-}
+  .board-search-box {
+    display: flex;
+    max-width: 30rem;
+    margin-bottom: 2rem;
+    height: 3rem;
 
-.board-search-box input {
-  width: 100%;
-  padding: 0 1rem;
-  font-size: 1rem;
-  border: 0.1rem solid #d1d3e2;
-  border-radius: 0.4rem 0 0 0.4rem;
-}
+    input {
+      width: 100%;
+      padding: 0 1rem;
+      font-size: 1rem;
+      border: 0.1rem solid #d1d3e2;
+      border-radius: 0.4rem 0 0 0.4rem;
+      background-color: #ffffff;
+      color: $global-color-deep-dark;
+    }
 
-.board-search-box button {
-  width: 4rem;
-  font-size: 1.2rem;
-  background: #4e73df;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 0 0.4rem 0.4rem 0;
-}
+    button {
+      width: 4rem;
+      font-size: 1.2rem;
+      background: $global-color-low-dark;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 0 0.4rem 0.4rem 0;
+      align-items: center;
+      display: flex;
+      justify-content: center;
 
-.board-title {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-left: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.board-card {
-  background: white;
-  padding: 1rem;
-  border-radius: 0.8rem;
-  box-shadow: 0 0 1rem rgba(0,0,0,0.05);
-}
-
-.board-card-title {
-  font-size: 2.5rem;
-  margin-left: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-/* 테이블 */
-.board-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 1rem;
-  text-align: center;
-  table-layout: auto;
-}
-
-.board-table th {
-  background: #f8f9fc;
-  padding: 2rem;
-  font-weight: bold;
-  border-bottom: 0.15rem solid #e3e6f0;
-  white-space: nowrap;
-}
-
-.board-table td {
-  padding: 1rem;
-  border-bottom: 0.1rem solid #e3e6f0;
-  white-space: nowrap;
-}
-
-/* hover */
-.board-table tr:hover {
-  background: #f1f3f7;
-}
-
-.board-table .col-flex {
-  width: 80%;
-  border-left: 0.0625rem solid #000000;
-  border-right: 0.0625rem solid #000000;
-  white-space: normal;
-}
-
-/* 번호/날짜는 너무 좁아지지 않도록 최소 너비 부여 */
-.board-table .first,
-.board-table .last {
-  min-width: 6rem;
-  white-space: nowrap;
-  text-align: center;
-}
-
-/* 반응형 - 태블릿에서 살짝 더 넓힘 */
-@media (max-width: 1024px) {
-  .board-table .first,
-  .board-table .last {
-    min-width: 7rem;
+        img {
+          width: 2rem;
+          align-items: center;
+          display: flex;
+          justify-content: center;
+        }
+    }
   }
 
-  .board-table th,
-  .board-table td {
-    padding: 1.5rem;
+  .board-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-left: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .board-card {
+    background: white;
+    padding: 1rem;
+    border-radius: 0.8rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05);
+
+    .board-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+
+      .board-card-title {
+        font-size: 2.5rem;
+        margin-left: 1.5rem;
+        margin-bottom: 0;
+      }
+
+      .btn-primary {
+        background: $global-color-low-dark;
+        color: #fff;
+        padding: 0.7rem 1.4rem;
+        border-radius: 0.5rem;
+        font-weight: bold;
+        white-space: nowrap;
+      }
+    }
+
+    .board-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1rem;
+      text-align: center;
+      table-layout: auto;
+
+      th {
+        background: $global-color-low-dark;
+        padding: 1rem;
+        color: $global-color-deep-light;
+        font-weight: bold;
+        border-bottom: 0.15rem solid #e3e6f0;
+        white-space: nowrap;
+      }
+
+      td {
+        padding: 1rem;
+        border-bottom: 0.1rem solid #e3e6f0;
+        white-space: nowrap;
+      }
+
+      tr:hover {
+        background: #f1f3f7;
+      }
+
+      .col-flex {
+        width: 80%;
+        border-left: 0.0625rem solid #d1d3e2;
+        border-right: 0.0625rem solid #d1d3e2;
+        white-space: normal;
+      }
+
+      .first,
+      .last {
+        min-width: 6rem;
+        white-space: nowrap;
+        text-align: center;
+      }
+    }
+  }
+
+  /* 반응형 */
+  @media (max-width: 1024px) {
+    .board-card {
+      .board-table {
+        .first,
+        .last {
+          min-width: 7rem;
+        }
+
+        th,
+        td {
+          padding: 1.5rem;
+        }
+      }
+    }
   }
 }

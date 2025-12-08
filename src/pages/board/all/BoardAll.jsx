@@ -1,5 +1,7 @@
 import "../../../assets/common/Table.min.css"
 import "../../../assets/Common.min.css"
+import { Link } from "react-router-dom";
+import searchIcon from "../../../assets/images/search.png";
 
 function BoardAll() {
     return (
@@ -8,15 +10,24 @@ function BoardAll() {
             {/* 검색창 */}
             <div className="board-search-box">
                 <input type="text" placeholder="Search for..." />
-                <button>🔍</button>
+                <button>
+                    <img src={searchIcon} alt="검색" />
+                </button>
             </div>
 
             {/* 제목 */}
-            <h2 className="board-title">게시판</h2>
+            <h2 className="board-title">게시판 전체</h2>
 
             {/* 카드 형태 테이블 */}
             <div className="board-card">
-                <h2 className="board-card-title">전체</h2>
+
+                <div className="board-header">
+                    <h2 className="board-card-title"></h2>
+
+                    <Link to="/board/new" className="btn-primary">
+                        NEW
+                    </Link>
+                </div>
 
                 <table className="board-table">
                     <thead>
