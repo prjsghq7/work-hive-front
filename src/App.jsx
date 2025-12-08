@@ -1,9 +1,12 @@
+import "./assets/Common.min.css";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainLayout from "./layouts/main/MainLayout.jsx";
 
 import Home from "./pages/Home";
 
 import Login from "./pages/user/Login.jsx";
+import UserSearch from "./pages/user/search/UserSearch.jsx";
 
 import LeaveMain from "./pages/leave/main/LeaveMain.jsx";
 import LeaveRequest from "./pages/leave/request/LeaveRequest.jsx";
@@ -23,6 +26,8 @@ function App() {
                 {/* 사이드 있는 화면 */}
                 <Route path="/" element={<MainLayout />}>
                     <Route index element={<Home />} />
+
+                    <Route path="user/search" element={<UserSearch />} />
 
                     <Route path="leave/main" element={<LeaveMain/>}></Route>
                     <Route path="leave/request" element={<LeaveRequest/>}></Route>

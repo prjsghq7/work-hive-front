@@ -1,6 +1,8 @@
 @use "sass:color";
 @import url('https://fonts.googleapis.com/css2?family=Asta+Sans:wght@300..800&display=swap');
 
+@import "./common/Filter.scss";
+
 * {
   box-sizing: border-box;
   font-family: "Asta Sans", sans-serif;

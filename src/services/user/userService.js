@@ -15,3 +15,20 @@ export const registerService = {
         return apiClient.post("/user/register", null, {params: {id, password}});
     }
 }
+
+
+export const searchService = {
+    search(name, teamCode, userState) {
+        return apiClient.post("/user/search", null, {
+            params: { name, teamCode, userState }
+        });
+    },
+
+    getTeamList() {
+        return apiClient.get("/user/team-list");
+    },
+
+    getUserStateList() {
+        return apiClient.get("/user/state-list");
+    }
+}
