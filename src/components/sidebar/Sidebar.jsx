@@ -36,9 +36,9 @@ export default function Sidebar() {
             id: "leave",
             title: "연차관리",
             children: [
-                { label: "연차 승인", path: "/leave/approve" },
+                { label: "연차 메인", path: "/leave/main" },
                 { label: "연차 신청", path: "/leave/request" },
-                { label: "연차 이력", path: "/leave/history" }
+                { label: "연차 이력", path: "/leave/list" }
             ]
         },
         {
