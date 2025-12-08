@@ -1,0 +1,86 @@
+/* 전체 래퍼 */
+.calendar-wrapper {
+    width: 900px;
+    margin: 0 auto;
+}
+
+.calendar-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* ----------------------------- */
+/* 🔥 필터 */
+/* ----------------------------- */
+.custom-filter-box {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.custom-filter-box .filter-label {
+    font-size: 15px;
+    color: #9c9c9c;
+    padding-bottom: 6px;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.25s ease;
+}
+
+.custom-filter-box .filter-label:hover {
+    color: #666;
+}
+
+.custom-filter-box .filter-label.active {
+    color: #e34a3a;
+    font-weight: 600;
+}
+
+.custom-filter-box .filter-label.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 3px;
+    background: #e34a3a;
+    border-radius: 2px;
+}
+
+/* ----------------------------- */
+/* 🔥 FullCalendar 스타일 */
+/* ----------------------------- */
+
+/* 요일 헤더 */
+.fc-col-header-cell-cushion {
+    font-size: 14px;
+    color: #9a9a9a;
+}
+
+/* 날짜 숫자 */
+.fc-daygrid-day-number {
+    font-size: 13px;
+    color: #c04a4a;
+}
+
+/* 지난달/다음달 날짜 흐리게 */
+.fc-day-other .fc-daygrid-day-number {
+    opacity: 0.4;
+}
+
+/* 이벤트 바 기본 스타일 */
+.fc-event {
+    border: none !important;
+    color: white;
+    padding: 3px 5px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* 색상 스타일 */
+.fc-event.red { background: #e86868 !important; }
+.fc-event.green { background: #7fc56a !important; }
+.fc-event.blue { background: #6ea6ff !important; }
