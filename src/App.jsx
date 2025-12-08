@@ -8,6 +8,7 @@ import BoardAll from "./pages/board/all/BoardAll.jsx";
 import BoardNotice from "./pages/board/notice/BoardNotice.jsx";
 import BoardFamilyEvent from "./pages/board/familyEvent/BoardFamilyEvent.jsx";
 import BoardNew from "./pages/board/new/BoardNew.jsx";
+import Register from "./pages/user/Register.jsx";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                 </Route>
 
                 <Route path="/user/login" element={<Login />} />
+                <Route path="/user/register" element={<Register />} />
 
             </Routes>
         </Router>
