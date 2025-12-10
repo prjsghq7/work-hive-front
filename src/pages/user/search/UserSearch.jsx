@@ -11,6 +11,9 @@ export default function UserSearch() {
 
     const [teamList, setTeamList] = useState([]);
     const [stateList, setStateList] = useState([]);
+
+    const [userList, setUserList] = useState([]);
+
     useEffect(() => {
         const fetchFilterList = async () => {
             try {
@@ -37,11 +40,13 @@ export default function UserSearch() {
         e.preventDefault();
         try {
             reset();
-            const res = await run(() => searchService.search(name, teamCode, teamCode));
-            alert(res.success);
+            const res = await run(() => searchService.search(name, teamCode, userState));
+
+            console.log(res);
+            setUserList(res.data.userList);
         } catch (err) {
             if (err.response) {
-                const {message,code}= err.response.data;
+                const {message, code} = err.response.data;
                 //err.response.data에 있는 message,code를 자동으로 매핑
                 console.log("백엔드 응답:", err.response.data);
                 console.log(message || `검색 실패 ${code || "알 수 없는 오류"}`);
@@ -59,84 +64,129 @@ export default function UserSearch() {
     const isAdmin = true;
 
     return (
-        <div className="filter-box">
-            <h1 className="filter-title">회원 검색</h1>
+        <>
+            <div className="filter-box">
+                <h1 className="filter-title">회원 검색</h1>
 
-            <form className="filter-form" onSubmit={handleSubmit}>
-                <div className="filter-fields">
-                    <div className="filter-field">
-                        <label htmlFor="name" className="filter-label">
-                            이름
-                        </label>
-                        <input
-                            id="name"
-                            type="text"
-                            className="filter-input"
-                            placeholder="이름을 입력하세요"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                    </div>
-
-                    <div className="filter-field">
-                        <label htmlFor="teamCode" className="filter-label">
-                            팀
-                        </label>
-                        <select
-                            id="teamCode"
-                            className="filter-select"
-                            value={teamCode}
-                            onChange={(e) => setTeamCode(e.target.value)}
-                        >
-                            <option value="">전체</option>
-                            {teamList.map((team) => (
-                                <option key={team.code} value={team.code}>
-                                    {team.displayText}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-
-                    {isAdmin && (
+                <form className="filter-form" onSubmit={handleSubmit}>
+                    <div className="filter-fields">
                         <div className="filter-field">
-                            <label htmlFor="userState" className="filter-label">
-                                재직 상태
+                            <label htmlFor="name" className="filter-label">
+                                이름
+                            </label>
+                            <input
+                                id="name"
+                                type="text"
+                                className="filter-input"
+                                placeholder="이름을 입력하세요"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="filter-field">
+                            <label htmlFor="teamCode" className="filter-label">
+                                팀
                             </label>
                             <select
-                                id="userState"
+                                id="teamCode"
                                 className="filter-select"
-                                value={userState}
-                                onChange={(e) => setUserState(e.target.value)}
+                                value={teamCode}
+                                onChange={(e) => setTeamCode(e.target.value)}
                             >
                                 <option value="">전체</option>
-                                {stateList.map((state) => (
-                                    <option key={state.code} value={state.code}>
-                                        {state.displayText}
+                                {teamList.map((team) => (
+                                    <option key={team.code} value={team.code}>
+                                        {team.displayText}
                                     </option>
                                 ))}
                             </select>
                         </div>
-                    )}
-                </div>
 
-                <div className="filter-actions">
-                    <button
-                        type="button"
-                        className="filter-button filter-button--secondary"
-                        onClick={handleReset}
-                        disabled={loading}
-                    >
-                        초기화
-                    </button>
-                    <button
-                        type="submit"
-                        className="filter-button filter-button--primary"
-                        disabled={loading}
-                    >
-                        {loading ? "검색 중..." : "검색"}
-                    </button>
+                        {isAdmin && (
+                            <div className="filter-field">
+                                <label htmlFor="userState" className="filter-label">
+                                    재직 상태
+                                </label>
+                                <select
+                                    id="userState"
+                                    className="filter-select"
+                                    value={userState}
+                                    onChange={(e) => setUserState(e.target.value)}
+                                >
+                                    <option value="">전체</option>
+                                    {stateList.map((state) => (
+                                        <option key={state.code} value={state.code}>
+                                            {state.displayText}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="filter-actions">
+                        <button
+                            type="button"
+                            className="filter-button filter-button--secondary"
+                            onClick={handleReset}
+                            disabled={loading}
+                        >
+                            초기화
+                        </button>
+                        <button
+                            type="submit"
+                            className="filter-button filter-button--primary"
+                            disabled={loading}
+                        >
+                            {loading ? "검색 중..." : "검색"}
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+
+            {/* ===== 검색 결과 테이블 영역 ===== */}
+            <div className="board-container">
+
+                <h1 className="board-title">회원 목록</h1>
+
+                <div className="board-card">
+                    <div className="board-header">
+                        <h2 className="board-card-title">검색 결과</h2>
+                    </div>
+
+                    <table className="board-table">
+                        <thead>
+                        <tr>
+                            <th className="first">이름</th>
+                            <th>팀</th>
+                            <th>직급</th>
+                            <th className="col-flex">이메일</th>
+                            <th className="last">재직상태</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {userList.length === 0 ? (
+                            <tr>
+                                <td colSpan={7}>검색 결과가 없습니다.</td>
+                            </tr>
+                        ) : (
+                            userList.map((user) => (
+                                <tr key={user.empId}>
+                                    <td>{user.name}</td>
+                                    <td>{user.teamName}</td>
+                                    <td>{user.roleName}</td>
+                                    <td className="col-flex">{user.email}</td>
+                                    <td className="last">{user.userStateName}</td>
+                                </tr>
+                            ))
+                        )}
+                        </tbody>
+                    </table>
                 </div>
-            </form>
-        </div>
+            </div>
+        </>
     );
 }
