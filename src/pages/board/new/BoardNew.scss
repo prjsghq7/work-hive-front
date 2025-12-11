@@ -1,0 +1,104 @@
+@charset "UTF-8";
+
+/* 공통 CSS already imported in component */
+
+/* 전체 컨테이너 */
+.board-container {
+  color: #000000;
+  padding: 2rem;
+
+  .board-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+
+  /* 카드(Form) 박스 */
+  .board-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 0.8rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.08);
+
+    label {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    /* select, input, textarea 공통 스타일 */
+    select,
+    .input,
+    .textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 0.1rem solid #d1d3e2;
+      border-radius: 0.5rem;
+      color: #000000;
+      font-size: 1rem;
+      font-family: inherit;
+      background: #fff;
+    }
+
+    /* select 박스 */
+    select {
+      cursor: pointer;
+      background-color: #f8f9fc;
+
+      &:focus {
+        border-color: #4e73df;
+      }
+    }
+
+    /* 제목 input */
+    .input {
+      &:focus {
+        border-color: #4e73df;
+      }
+    }
+
+    /* 내용 textarea */
+    .textarea {
+      min-height: 15rem;
+      resize: vertical;
+      line-height: 1.6;
+
+      &:focus {
+        border-color: #4e73df;
+      }
+    }
+
+    /* 저장 버튼 */
+    .btn-primary {
+      align-self: flex-end;
+      background: #4e73df;
+      color: #fff;
+      padding: 0.9rem 1.8rem;
+      font-size: 1.1rem;
+      border-radius: 0.5rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 1rem;
+      white-space: nowrap;
+
+      &:hover {
+        background: #3b5bc9;
+      }
+    }
+  }
+
+  /* 반응형 (태블릿) */
+  @media (max-width: 768px) {
+    .board-card {
+      padding: 1.5rem;
+
+      .textarea {
+        min-height: 12rem;
+      }
+    }
+  }
+}

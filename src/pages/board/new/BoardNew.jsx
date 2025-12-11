@@ -1,49 +1,80 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "../../../assets/common/Table.min.css";
-import "../../../assets/Common.min.css"
+import "../../../assets/Common.min.css";
+import "./BoardNew.min.css";
+
+import { useApi } from "../../../hooks/useApi.js";
+import axios from "axios";
+import {API_BASE_URL} from "../../../configs/apiConfig.js"; // axios import 필요함
 
 function BoardNew() {
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+    const navigate = useNavigate();
+    const { run, loading, error } = useApi();
 
-    const handleSubmit = (e) => {
+    // 입력값 상태
+    const [type, setType] = useState(1);        // 공지사항 기본값
+    const [title, setTitle] = useState("");     // 제목
+    const [content, setContent] = useState(""); // 내용
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("제출 데이터:", { title, content });
 
-        // TODO: spring backend로 POST 요청 보내기
-        // axios.post("/api/board", { title, content })
+        try {
+            await run(() =>
+                axios.post(`${API_BASE_URL}/boards`, {
+                    title,
+                    content,
+                    type: Number(type),
+                    empId: 1
+                })
+            );
+
+            alert("게시글이 등록되었습니다!");
+            navigate("/board/all"); // 목록으로 이동
+        } catch (error) {
+            console.error(error);
+            alert("게시글 등록 실패");
+        }
     };
 
     return (
         <div className="board-container">
             <h2 className="board-title">게시글 작성</h2>
 
-            <div className="board-card">
-                <form onSubmit={handleSubmit}>
-                    <div className="form-item">
-                        <label>제목</label>
-                        <input
-                            type="text"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            required
-                        />
-                    </div>
+            <form className="board-card" onSubmit={handleSubmit}>
 
-                    <div className="form-item">
-                        <label>내용</label>
-                        <textarea
-                            value={content}
-                            onChange={(e) => setContent(e.target.value)}
-                            required
-                        />
-                    </div>
+                {/* 카테고리 선택 */}
+                <label>카테고리</label>
+                <select value={type} onChange={(e) => setType(e.target.value)}>
+                    <option value="1">공지사항</option>
+                    <option value="2">경조사</option>
+                </select>
 
-                    <button type="submit" className="btn-primary">
-                        등록하기
-                    </button>
-                </form>
-            </div>
+                {/* 제목 */}
+                <label>제목</label>
+                <input
+                    type="text"
+                    className="input"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                />
+
+                {/* 내용 */}
+                <label>내용</label>
+                <textarea
+                    className="textarea"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    required
+                />
+
+                <button type="submit" className="btn-primary">
+                    저장
+                </button>
+            </form>
         </div>
     );
 }

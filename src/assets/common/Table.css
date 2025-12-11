@@ -176,6 +176,7 @@ ol, ul {
 
 .board-container {
   padding: 2rem;
+  /* 반응형 */
 }
 .board-container .board-search-box {
   display: flex;
@@ -258,6 +259,8 @@ ol, ul {
 }
 .board-container .board-card .board-table td {
   padding: 1rem;
+  border-left: 0.0625rem solid #d1d3e2;
+  border-right: 0.0625rem solid #d1d3e2;
   border-bottom: 0.1rem solid #e3e6f0;
   white-space: nowrap;
 }
@@ -266,8 +269,6 @@ ol, ul {
 }
 .board-container .board-card .board-table .col-flex {
   width: 80%;
-  border-left: 0.0625rem solid #d1d3e2;
-  border-right: 0.0625rem solid #d1d3e2;
   white-space: normal;
 }
 .board-container .board-card .board-table .first,
@@ -275,9 +276,8 @@ ol, ul {
   min-width: 6rem;
   white-space: nowrap;
   text-align: center;
-}
-.board-container {
-  /* 반응형 */
+  border-left: 0.0625rem solid #d1d3e2;
+  border-right: 0.0625rem solid #d1d3e2;
 }
 @media (max-width: 1024px) {
   .board-container .board-card .board-table .first,
