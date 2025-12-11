@@ -5,6 +5,11 @@
 
 .content {
   flex: 1;                /* 남은 영역 전부 사용 */
-  padding: 20px;
   background: #f9fafb;    /* 확인용 배경 */
+
+  padding: 24px 28px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }

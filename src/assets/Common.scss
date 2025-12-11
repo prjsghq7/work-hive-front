@@ -1,7 +1,9 @@
-@use "sass:color";
 @import url('https://fonts.googleapis.com/css2?family=Asta+Sans:wght@300..800&display=swap');
 
+@import "./common/Button.scss";
 @import "./common/Filter.scss";
+@import "./common/Input.scss";
+@import "./common/Table.scss";
 
 * {
   box-sizing: border-box;
@@ -58,13 +60,3 @@ ol, ul {
   margin-inline: 0;
   padding-inline: 0;
 }
-
-$global-color-deep-dark : #1B262C;
-
-$global-color-low-dark : #0F4C75;
-$global-color-low-dark-lighten-10 : color.adjust($global-color-low-dark, $lightness: 10%);
-$global-color-low-dark-lighten-20 : color.adjust($global-color-low-dark, $lightness: 20%);
-
-$global-color-low-light : #3282B8;
-
-$global-color-deep-light : #BBE1FA;

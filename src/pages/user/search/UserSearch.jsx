@@ -66,7 +66,7 @@ export default function UserSearch() {
     return (
         <>
             <div className="filter-box">
-                <h1 className="filter-title">회원 검색</h1>
+                {/*<h1 className="filter-title">회원 검색</h1>*/}
 
                 <form className="filter-form" onSubmit={handleSubmit}>
                     <div className="filter-fields">
@@ -125,10 +125,10 @@ export default function UserSearch() {
                         )}
                     </div>
 
-                    <div className="filter-actions">
+                    <div className="button-wrapper">
                         <button
                             type="button"
-                            className="filter-button filter-button--secondary"
+                            className="-object-button --blue"
                             onClick={handleReset}
                             disabled={loading}
                         >
@@ -136,7 +136,7 @@ export default function UserSearch() {
                         </button>
                         <button
                             type="submit"
-                            className="filter-button filter-button--primary"
+                            className="-object-button --white"
                             disabled={loading}
                         >
                             {loading ? "검색 중..." : "검색"}
@@ -149,11 +149,11 @@ export default function UserSearch() {
             {/* ===== 검색 결과 테이블 영역 ===== */}
             <div className="board-container">
 
-                <h1 className="board-title">회원 목록</h1>
+                {/*<h1 className="board-title">회원 목록</h1>*/}
 
                 <div className="board-card">
                     <div className="board-header">
-                        <h2 className="board-card-title">검색 결과</h2>
+                        {/*<h2 className="board-card-title">검색 결과</h2>*/}
                     </div>
 
                     <table className="board-table">

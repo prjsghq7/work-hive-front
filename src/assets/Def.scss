@@ -1,0 +1,11 @@
+@use "sass:color";
+
+$global-color-deep-dark : #1B262C;
+
+$global-color-low-dark : #0F4C75;
+$global-color-low-dark-lighten-10 : color.adjust($global-color-low-dark, $lightness: 10%);
+$global-color-low-dark-lighten-20 : color.adjust($global-color-low-dark, $lightness: 20%);
+
+$global-color-low-light : #3282B8;
+
+$global-color-deep-light : #BBE1FA;
