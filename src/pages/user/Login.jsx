@@ -19,7 +19,7 @@ function Login() {
             if (res.success) {
                 alert('로그인성공');
                 const {id, accessToken} = res.data;
-                localStorage.setItem("accessToekn"
+                localStorage.setItem("accessToken"
                     , accessToken);
                 localStorage.setItem("empId", id);
                 console.log(res.data.id);

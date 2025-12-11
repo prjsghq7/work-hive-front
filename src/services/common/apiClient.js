@@ -9,9 +9,9 @@ const apiClient = axios.create({
 });
 
 apiClient.interceptors.request.use((config) => {
-        const accesstoken = localStorage.getItem("accessToken");
-        if (accesstoken) {
-            config.headers.Authorization = `Bearer ${accesstoken}`;
+        const accessToken = localStorage.getItem("accessToken");
+        if (accessToken) {
+            config.headers.Authorization = `Bearer ${accessToken}`;
         }
         return config;
     },

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import MainLayout from "./layouts/main/MainLayout.jsx";
 
-
+const Mypage =lazy(()=>import( "./pages/user/Mypage.jsx"));
 const Home = lazy(() => import("./pages/Home"));
 
 const Login = lazy(() => import("./pages/user/Login.jsx"));
@@ -46,6 +46,7 @@ function App() {
 
                 <Route path="/user/login" element={<Login />} />
                 <Route path="/user/register" element={<Register />} />
+                <Route path="/user/me" element={<Mypage />} />
 
             </Routes>
             </Suspense>
