@@ -5,6 +5,24 @@ import {useApi} from "../../../hooks/useApi.js";
 import "./UserSearch.min.css";
 
 export default function UserSearch() {
+    const ROLE_COLOR_MAP = {
+        사장: "dark",
+        이사: "navy",
+        부장: "purple",
+        차장: "blue",
+        과장: "cyan",
+        대리: "mint",
+        주임: "green",
+        사원: "gray",
+        인턴: "amber"
+    };
+
+    const USER_STATE_COLOR_MAP = {
+        재직: "green",
+        대기: "yellow",
+        퇴사: "wine"
+    };
+
     const [name, setName] = useState("");
     const [teamCode, setTeamCode] = useState("");
     const [userState, setUserState] = useState("");
@@ -177,9 +195,17 @@ export default function UserSearch() {
                                 <tr key={user.empId}>
                                     <td>{user.name}</td>
                                     <td>{user.teamName}</td>
-                                    <td>{user.roleName}</td>
+                                    <td>
+                                        <span className={`tag-label ${ROLE_COLOR_MAP[user.roleName] ?? "gray"}`}>
+                                            {user.roleName}
+                                        </span>
+                                    </td>
                                     <td className="col-flex">{user.email}</td>
-                                    <td className="last">{user.userStateName}</td>
+                                    <td className="last">
+                                        <span className={`tag-label ${USER_STATE_COLOR_MAP[user.userStateName] ?? "gray"}`}>
+                                            {user.userStateName}
+                                        </span>
+                                    </td>
                                 </tr>
                             ))
                         )}

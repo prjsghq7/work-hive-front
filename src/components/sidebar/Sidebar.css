@@ -235,6 +235,135 @@
   }
 }
 
+.tag-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.375rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: #495057;
+  border: 0.0625rem solid #495057;
+  background-color: #E9ECEF;
+}
+
+.tag-label.navy {
+  border-color: #0A2540;
+  color: #0A2540;
+  background-color: rgba(10, 37, 64, 0.1019607843);
+}
+
+.tag-label.blue {
+  border-color: #0D6EFD;
+  color: #0D6EFD;
+  background-color: rgba(13, 110, 253, 0.1019607843);
+}
+
+.tag-label.sky {
+  border-color: #4DABF7;
+  color: #4DABF7;
+  background-color: rgba(77, 171, 247, 0.1019607843);
+}
+
+.tag-label.cyan {
+  border-color: #0DCAF0;
+  color: #0DCAF0;
+  background-color: rgba(13, 202, 240, 0.1019607843);
+}
+
+.tag-label.mint {
+  border-color: #5ED1C6;
+  color: #5ED1C6;
+  background-color: rgba(94, 209, 198, 0.1019607843);
+}
+
+.tag-label.green {
+  border-color: #198754;
+  color: #198754;
+  background-color: rgba(25, 135, 84, 0.1019607843);
+}
+
+.tag-label.olive {
+  border-color: #827717;
+  color: #827717;
+  background-color: rgba(130, 119, 23, 0.1019607843);
+}
+
+.tag-label.yellow {
+  border-color: #FFC107;
+  color: #FFC107;
+  background-color: rgba(255, 193, 7, 0.1490196078);
+}
+
+.tag-label.amber {
+  border-color: #FFB300;
+  color: #FFB300;
+  background-color: rgba(255, 179, 0, 0.1490196078);
+}
+
+.tag-label.orange {
+  border-color: #FD7E14;
+  color: #FD7E14;
+  background-color: rgba(253, 126, 20, 0.1019607843);
+}
+
+.tag-label.red {
+  border-color: #DC3545;
+  color: #DC3545;
+  background-color: rgba(220, 53, 69, 0.1019607843);
+}
+
+.tag-label.wine {
+  border-color: #7B1E3A;
+  color: #7B1E3A;
+  background-color: rgba(123, 30, 58, 0.1019607843);
+}
+
+.tag-label.pink {
+  border-color: #D63384;
+  color: #D63384;
+  background-color: rgba(214, 51, 132, 0.1019607843);
+}
+
+.tag-label.purple {
+  border-color: #6F42C1;
+  color: #6F42C1;
+  background-color: rgba(111, 66, 193, 0.1019607843);
+}
+
+.tag-label.brown {
+  border-color: #795548;
+  color: #795548;
+  background-color: rgba(121, 85, 72, 0.1019607843);
+}
+
+.tag-label.slate {
+  border-color: #495057;
+  color: #495057;
+  background-color: rgba(73, 80, 87, 0.1019607843);
+}
+
+.tag-label.gray {
+  border-color: #6C757D;
+  color: #6C757D;
+  background-color: rgba(108, 117, 125, 0.1019607843);
+}
+
+.tag-label.charcoal {
+  border-color: #343A40;
+  color: #343A40;
+  background-color: rgba(52, 58, 64, 0.1019607843);
+}
+
+.tag-label.dark {
+  border-color: #212529;
+  color: #212529;
+  background-color: rgba(33, 37, 41, 0.1019607843);
+}
+
 * {
   box-sizing: border-box;
   font-family: "Asta Sans", sans-serif;
