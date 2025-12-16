@@ -1,6 +1,7 @@
 @use "sass:color";
 
-$global-color-deep-dark : linear-gradient(300deg, #0f4c75 0, #1b3878 55%, #010102 100%);;
+$global-color-gradient : linear-gradient(300deg, #0f4c75 0, #1b3878 55%, #010102 100%);
+$global-color-deep-dark : #1B262C;
 
 $global-color-low-dark : #0F4C75;
 $global-color-low-dark-lighten-10 : color.adjust($global-color-low-dark, $lightness: 10%);

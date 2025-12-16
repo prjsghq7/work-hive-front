@@ -12,7 +12,7 @@
   border: 0.1rem solid #d1d3e2;
   border-radius: 0.4rem 0 0 0.4rem;
   background-color: #ffffff;
-  color: linear-gradient(300deg, #0f4c75 0, #1b3878 55%, #010102 100%);
+  color: #1B262C;
 }
 .board-container .board-search-box button {
   width: 4rem;
