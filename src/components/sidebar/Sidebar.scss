@@ -1,9 +1,10 @@
-@import "../../assets/Common.scss";
+@import "../../assets/Def.scss";
 
 .sidebar {
   width: 240px;
   height: 100vh;
   background: $global-color-deep-dark;
+  box-shadow: 0 0.875rem 1.75rem rgba(37, 99, 235, 0.22); // 14px 28px
   color: #e5e7eb;
   padding: 16px 12px;
   box-sizing: border-box;

@@ -1,4 +1,9 @@
 import "./assets/Common.min.css";
+import "./assets/common/Button.min.css";
+import "./assets/common/Filter.min.css";
+import "./assets/common/Input.min.css";
+import "./assets/common/Table.min.css";
+import "./assets/common/TagLabel.min.css";
 
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {lazy, Suspense} from "react";
