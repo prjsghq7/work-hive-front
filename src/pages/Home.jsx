@@ -1,16 +1,19 @@
 import "./Home.min.css";
 import {useApi} from "../hooks/useApi.js";
-import { testService} from "../services/test/testService.js";
-
+import {testService} from "../services/test/testService.js";
+import { useAuth} from "./user/AuthContext.jsx";
 // 🔥 캘린더 컴포넌트 import
 import Calendar from "../components/calendars/Calendar.jsx";
 import CalendarFilterBar from "../components/calendars/CalendarFilterBar.jsx";
 
-import { useState } from "react";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 function Home() {
     // const {data,error,loading,callApi,reset} = useApi();
-    const {data,error,loading,run,reset} = useApi();
+    const {data, error, loading, run, reset} = useApi();
+    const {logout,isLoggedIn} = useAuth();
+    const navigate = useNavigate();
     const handleTestClick = async () => {
         try {
             reset();
@@ -23,6 +26,16 @@ function Home() {
             alert("요청 실패");
         }
     };
+    const handleLogout = () => {
+        if (!isLoggedIn ) {
+            alert("로그인 부터 해주세요.");
+            navigate("/user/login");
+            return;
+        }
+        else {
+            logout();
+        }
+    }
 
     // 🔥 페이지별 필터 상태 관리
     const [filter, setFilter] = useState("전체");
@@ -35,7 +48,7 @@ function Home() {
             <button onClick={handleTestClick} disabled={loading}>
                 {loading ? "요청중 ..." : "Test api 호출"}
             </button>
-            {error && <p style={{ color: "red" }}>에러 발생: {error.message}</p>}
+            {error && <p style={{color: "red"}}>에러 발생: {error.message}</p>}
             {data && <p>응답 데이터: {JSON.stringify(data)}</p>}
 
             {/* 🔥 페이지에서 필터 표시 */}
@@ -46,8 +59,10 @@ function Home() {
             />
 
             {/* 🔥 캘린더 표시 */}
-            <Calendar filter={filter} />
+            <Calendar filter={filter}/>
+            {isLoggedIn ? (<button onClick={handleLogout}>로그아웃</button>) : (<button onClick={()=>navigate("/user/login")}>로그인</button>)}
         </div>
+
     );
 }
 

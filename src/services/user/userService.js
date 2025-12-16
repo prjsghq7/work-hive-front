@@ -10,9 +10,12 @@ export const loginService = {
 //첫번째 인자: url, 두번쨰 인자: body(JSON,Form등),세번째 인자:추가설정(config)
 //@RequestParam을 사용할 경우 body가 필요 없어서 null로 처리하고, axios에서는 params를 사용한다.
 //params는 URL 쿼리스트링을 자동으로 만들어준다.
-export const registerService = {
+export const userService={
     register(form) {
         return apiClient.post("/user/register", form);
+    },
+    getMyInfo(){
+        return apiClient.get("/user/me");
     }
 }
 
@@ -33,8 +36,3 @@ export const searchService = {
     }
 }
 
-export const userService={
-    getMyInfo(){
-        return apiClient.get("/user/me");
-    }
-}

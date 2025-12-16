@@ -1,0 +1,169 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 3.5rem 1rem; // 56px 16px
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* 신비로운 배경 글로우 */
+  background:
+          radial-gradient(56.25rem 37.5rem at 15% 10%, rgba(37, 99, 235, 0.18), transparent 55%), // 900px 600px
+          radial-gradient(56.25rem 37.5rem at 85% 25%, rgba(15, 76, 117, 0.20), transparent 55%),
+          radial-gradient(43.75rem 31.25rem at 55% 85%, rgba(29, 78, 216, 0.14), transparent 60%), // 700px 500px
+          #f6f8fb;
+
+  > h1 {
+    margin: 0 0 1.125rem; // 18px
+    line-height: 1;
+    font-size: clamp(1.875rem, 3.4vw, 2.625rem); // 30px ~ 42px
+    font-weight: 900;
+    letter-spacing: -0.05em;
+
+    background: linear-gradient(135deg, #0f4c75 0%, #2563eb 55%, #1d4ed8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    text-shadow: 0 1rem 2.5rem rgba(15, 76, 117, 0.18); // 16px 40px
+  }
+
+  /* 카드(폼) */
+  > form {
+    width: min(26.25rem, 92vw); // 420px
+    padding: 1.375rem 1.25rem 1.125rem; // 22px 20px 18px
+    border-radius: 1.125rem; // 18px
+
+    background: rgba(255, 255, 255, 0.70);
+    border: 0.0625rem solid rgba(255, 255, 255, 0.65); // 1px
+    box-shadow:
+            0 1.125rem 3.125rem rgba(2, 8, 23, 0.10), // 18px 50px
+            0 0.0625rem 0 rgba(255, 255, 255, 0.65) inset;
+
+    backdrop-filter: blur(0.875rem); // 14px
+    -webkit-backdrop-filter: blur(0.875rem);
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; // 16px
+
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: -40% -40% auto -40%;
+      height: 13.75rem; // 220px
+      background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.18), transparent 60%);
+      pointer-events: none;
+    }
+  }
+
+  /* 버튼 */
+  button {
+    &.-object-button {
+      &.--blue {
+        width: 100%;
+        height: 2.75rem; // 44px
+        border: none;
+        border-radius: 0.75rem; // 12px
+        cursor: pointer;
+
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: white;
+
+        background: linear-gradient(135deg, #0f4c75 0%, #2563eb 55%, #1d4ed8 100%);
+        box-shadow: 0 0.875rem 1.75rem rgba(37, 99, 235, 0.22); // 14px 28px
+
+        transition: transform 140ms ease, filter 140ms ease, box-shadow 140ms ease;
+
+        &:hover {
+          transform: translateY(-0.0625rem); // -1px
+          filter: brightness(1.02);
+          box-shadow: 0 1.125rem 2.125rem rgba(37, 99, 235, 0.26); // 18px 34px
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+
+        &:disabled {
+          cursor: not-allowed;
+          opacity: 0.65;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}
+
+/* 입력 영역 */
+.form-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem; // 14px
+}
+
+/* 인풋 래퍼 */
+.input-wrap {
+  position: relative;
+  width: 100%;
+
+  > input {
+    width: 100%;
+    height: 2.75rem; // 44px
+    padding: 0 0.75rem; // 12px
+
+    border: none;
+    border-bottom: 0.0625rem solid rgba(15, 23, 42, 0.18);
+    background: rgba(255, 255, 255, 0.35);
+
+    border-top-left-radius: 0.625rem; // 이미 rem
+    border-top-right-radius: 0.625rem;
+    outline: none;
+
+    font-size: 0.875rem; // 14px
+    color: #0f172a;
+
+    transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+
+    &::placeholder {
+      color: rgba(15, 23, 42, 0.45);
+    }
+
+    &:focus {
+      background: rgba(37, 99, 235, 0.06);
+      border-bottom-color: transparent;
+      transform: translateY(-0.0625rem); // -1px
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0.125rem; // 2px
+    height: 0.125rem; // 2px
+    width: 100%;
+
+    background: linear-gradient(90deg, #0f4c75, #2563eb, #1d4ed8);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 240ms ease;
+    border-radius: 62.4375rem; // 999px
+  }
+
+  &:focus-within::after {
+    transform: scaleX(1);
+  }
+}
+
+.subtitle {
+  margin: -0.375rem 0 0.875rem; // -6px 14px
+  font-size: 0.8125rem; // 13px
+  color: rgba(15, 23, 42, 0.55);
+}

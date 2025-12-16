@@ -17,6 +17,7 @@
   font-weight: 500;
   cursor: pointer;
   box-sizing: border-box;
+  text-align: center;
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
 }
 .-object-button.--round {
@@ -120,6 +121,9 @@
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 }
+.board-container {
+  /* 반응형 */
+}
 .board-container .board-search-box {
   display: flex;
   max-width: 30rem;
@@ -220,9 +224,6 @@
   text-align: center;
   border-left: 0.0625rem solid #d1d3e2;
   border-right: 0.0625rem solid #d1d3e2;
-}
-.board-container {
-  /* 반응형 */
 }
 @media (max-width: 1024px) {
   .board-container .board-card .board-table .first,
