@@ -3,7 +3,7 @@ import apiClient from "../common/apiClient.js";
 //dto로 받을경우 밑의 방식으로 사용
 export const loginService = {
     login(id, password) {
-        return apiClient.post("/user/login", {emp_id:id, password});
+        return apiClient.post("/user/login", {empId:id, password});
     }
 }
 //axios.post(url, data, config) 기본적인 형태

@@ -1,54 +1,67 @@
-import {useEffect, useMemo, useState, useContext, createContext} from "react";
-import {userService} from "../../services/user/userService.js";
-import {useApi} from "../../hooks/useApi.js";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { userService } from "../../services/user/userService.js";
+import { useApi } from "../../hooks/useApi.js";
 
 const AuthContext = createContext(null);
 
-export function AuthProvider({children}) {
+export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
-    const {run} = useApi();
-    const isLoggedIn = !!user;
-    //!! 는값이 존재하냐를 true/false로 바꿔주는 연산자.
+    const [loading, setLoading] = useState(true);
+    const { run } = useApi();
 
     useEffect(() => {
-        async function init(){
+        (async () => {
             const token = localStorage.getItem("accessToken");
+            console.log("Auth init token:", token);
+
             if (!token) {
                 setUser(null);
+                setLoading(false);
                 return;
             }
-            try{
+
+            try {
                 const res = await run(() => userService.getMyInfo());
-                setUser(res.data);
-            }catch (e){
-                console.log(e);
+                console.log("getMyInfo raw res:", res);
+
+                const me = res.data;   // ⭐ 핵심
+                setUser(me);
+            } catch (e) {
+                console.log("getMyInfo 실패:", e);
                 setUser(null);
+            } finally {
+                setLoading(false);
             }
-        }
-        init();
+        })();
     }, [run]);
 
-    const login = (loginResult)=>{
-        //loginResult =는 res.data가 들어간다.
-        const accessToken = loginResult.accessToken;
-        const empId = loginResult.emp_id;
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("empId", empId);
-        setUser({empId: empId})
+    const isLoggedIn = !!user;
 
-    }
+    const login = async (loginResult) => {
+        localStorage.setItem("accessToken", loginResult.accessToken);
+        localStorage.setItem("empId", loginResult.emp_id);
 
-    const logout = ()=>{
+        setLoading(true);
+        try {
+            const res = await run(() => userService.getMyInfo());
+            const me = res?.data ?? res;
+            setUser(me);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const logout = () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("empId");
         setUser(null);
-    }
+    };
 
     const value = useMemo(
-        () => ({user, setUser, isLoggedIn, login, logout}),
-        [user, isLoggedIn]
+        () => ({ user, isLoggedIn, loading, login, logout }),
+        [user, isLoggedIn, loading]
     );
-    //useMemo  -> 의존성이 바뀔 때만 객체를 새로 만든다.
+
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 

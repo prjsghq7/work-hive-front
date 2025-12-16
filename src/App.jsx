@@ -29,38 +29,38 @@ const BoardDetail = lazy(() => import("./pages/board/detail/BoardDetail.jsx"));
 
 function App() {
     return (
-            <Suspense fallback={<div className="loading">로딩중...</div>}>
-                <Routes>
+        <Suspense fallback={<div className="loading">로딩중...</div>}>
+            <Routes>
 
-                    {/* 사이드 있는 화면 */}
-                    <Route path="/" element={<MainLayout/>}>
-                        <Route index element={<Home/>}/>
+                {/* 사이드 있는 화면 */}
+                <Route path="/" element={<MainLayout/>}>
+                    <Route index element={<Home/>}/>
 
-                        <Route path="user/search" element={<UserSearch/>}/>
+                    <Route path="user/search" element={<UserSearch/>}/>
 
-                        <Route path="leave/main" element={<LeaveMain/>}></Route>
-                        <Route path="leave/request" element={<LeaveRequest/>}></Route>
-                        <Route path="leave/list" element={<LeaveList/>}></Route>
+                    <Route path="leave/main" element={<LeaveMain/>}></Route>
+                    <Route path="leave/request" element={<LeaveRequest/>}></Route>
+                    <Route path="leave/list" element={<LeaveList/>}></Route>
 
-                        <Route path="board/all" element={<BoardAll/>}></Route>
-                        <Route path="board/notice" element={<BoardNotice/>}></Route>
-                        <Route path="board/family-event" element={<BoardFamilyEvent/>}></Route>
-                        <Route path="board/new" element={<BoardNew/>}></Route>
-                        <Route path="board/detail/:id" element={<BoardDetail/>}></Route>
-                    </Route>
+                    <Route path="board/all" element={<BoardAll/>}></Route>
+                    <Route path="board/notice" element={<BoardNotice/>}></Route>
+                    <Route path="board/family-event" element={<BoardFamilyEvent/>}></Route>
+                    <Route path="board/new" element={<BoardNew/>}></Route>
+                    <Route path="board/detail/:id" element={<BoardDetail/>}></Route>
+                </Route>
 
-                    <Route path="/user/login" element={<Login/>}/>
-                    <Route path="/user/register" element={<Register/>}/>
-                    <Route
-                        path="/user/me"
-                        element={
-                            <RequireAuth>
-                                <Mypage/>
-                            </RequireAuth>
-                        }
-                    />
-                </Routes>
-            </Suspense>
+                <Route path="/user/login" element={<Login/>}/>
+                <Route path="/user/register" element={<Register/>}/>
+                <Route
+                    path="/user/me"
+                    element={
+                        <RequireAuth>
+                            <Mypage/>
+                        </RequireAuth>
+                    }
+                />
+            </Routes>
+        </Suspense>
     );
 }
 

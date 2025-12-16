@@ -36,6 +36,7 @@ function Home() {
             logout();
         }
     }
+    console.log(isLoggedIn);
 
     // 🔥 페이지별 필터 상태 관리
     const [filter, setFilter] = useState("전체");
@@ -60,7 +61,9 @@ function Home() {
 
             {/* 🔥 캘린더 표시 */}
             <Calendar filter={filter}/>
-            {isLoggedIn ? (<button onClick={handleLogout}>로그아웃</button>) : (<button onClick={()=>navigate("/user/login")}>로그인</button>)}
+            {isLoggedIn ? (<button onClick={handleLogout}>로그아웃</button>) : (
+                <button onClick={() => navigate("/user/login")}>로그인</button>)}
+
         </div>
 
     );
