@@ -1,6 +1,9 @@
 import {useState, useEffect} from "react";
-import {searchService} from "../../../services/user/userService.js";
+import {subTableListService, searchService} from "../../../services/user/userService.js";
 import {useApi} from "../../../hooks/useApi.js";
+
+import UserEditModal from "../../../components/user/UserEditModal.jsx";
+import UserDetailModal from "../../../components/user/UserDetailModal.jsx";
 
 import "./UserSearch.min.css";
 
@@ -36,8 +39,8 @@ export default function UserSearch() {
         const fetchFilterList = async () => {
             try {
                 const [teamRes, stateRes] = await Promise.all([
-                    searchService.getTeamList(),
-                    searchService.getUserStateList()
+                    subTableListService.getTeamList(),
+                    subTableListService.getUserStateList()
                 ]);
 
                 setTeamList(teamRes.data.data.codes);
@@ -80,6 +83,19 @@ export default function UserSearch() {
     };
 
     const isAdmin = true;
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [targetIndex, setTargetIndex] = useState(null);
+
+    const openModal = (index) => {
+        setTargetIndex(index);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setTargetIndex(null);
+        setIsModalOpen(false);
+    };
 
     return (
         <>
@@ -192,7 +208,9 @@ export default function UserSearch() {
                             </tr>
                         ) : (
                             userList.map((user) => (
-                                <tr key={user.empId}>
+                                <tr key={user.index}
+                                    onClick={() => openModal(user.index)}
+                                    style={{ cursor: "pointer" }}>
                                     <td>{user.name}</td>
                                     <td>{user.teamName}</td>
                                     <td>
@@ -213,6 +231,14 @@ export default function UserSearch() {
                     </table>
                 </div>
             </div>
+
+            {isModalOpen && isAdmin && (
+                <UserEditModal targetIndex={targetIndex} onClose={closeModal} />
+            )}
+
+            {isModalOpen && !isAdmin && (
+                <UserDetailModal targetIndex={targetIndex} onClose={closeModal} />
+            )}
         </>
     );
 }

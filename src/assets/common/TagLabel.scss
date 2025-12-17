@@ -1,26 +1,48 @@
 @import "../Def.scss";
 
 $label-colors: (
-        navy:   (#0A2540, #0A25401A),
-        blue:   (#0D6EFD, #0D6EFD1A),
-        sky:    (#4DABF7, #4DABF71A),
-        cyan:   (#0DCAF0, #0DCAF01A),
-        mint:   (#5ED1C6, #5ED1C61A),
-        green:  (#198754, #1987541A),
-        olive:  (#827717, #8277171A),
-        yellow: (#FFC107, #FFC10726),
-        amber:  (#FFB300, #FFB30026),
-        orange: (#FD7E14, #FD7E141A),
-        red:    (#DC3545, #DC35451A),
-        wine:   (#7B1E3A, #7B1E3A1A),
-        pink:   (#D63384, #D633841A),
-        purple: (#6F42C1, #6F42C11A),
-        brown:  (#795548, #7955481A),
-        slate:    (#495057, #4950571A),
-        gray:     (#6C757D, #6C757D1A),
-        charcoal: (#343A40, #343A401A),
-        dark:     (#212529, #2125291A)
+        navy:   (#0A2540, #0A254010),
+        blue:   (#0D6EFD, #0D6EFD10),
+        sky:    (#4DABF7, #4DABF710),
+        cyan:   (#0DCAF0, #0DCAF010),
+        mint:   (#5ED1C6, #5ED1C610),
+        green:  (#198754, #19875410),
+        olive:  (#827717, #82771710),
+        yellow: (#FFC107, #FFC10720),
+        amber:  (#FFB300, #FFB30020),
+        orange: (#FD7E14, #FD7E1410),
+        red:    (#DC3545, #DC354510),
+        wine:   (#7B1E3A, #7B1E3A10),
+        pink:   (#D63384, #D6338410),
+        purple: (#6F42C1, #6F42C110),
+        brown:  (#795548, #79554810),
+        slate:    (#495057, #49505710),
+        gray:     (#6C757D, #6C757D10),
+        charcoal: (#343A40, #343A4010),
+        dark:     (#212529, #21252910)
 );
+
+//$label-colors: (
+//        navy:   (#0A2540, #6C757D1A),
+//        blue:   (#0D6EFD, #6C757D1A),
+//        sky:    (#4DABF7, #6C757D1A),
+//        cyan:   (#0DCAF0, #6C757D1A),
+//        mint:   (#5ED1C6, #6C757D1A),
+//        green:  (#198754, #6C757D1A),
+//        olive:  (#827717, #6C757D1A),
+//        yellow: (#FFC107, #6C757D1A),
+//        amber:  (#FFB300, #6C757D1A),
+//        orange: (#FD7E14, #6C757D1A),
+//        red:    (#DC3545, #6C757D1A),
+//        wine:   (#7B1E3A, #6C757D1A),
+//        pink:   (#D63384, #6C757D1A),
+//        purple: (#6F42C1, #6C757D1A),
+//        brown:  (#795548, #6C757D1A),
+//        slate:    (#495057, #6C757D1A),
+//        gray:     (#6C757D, #6C757D1A),
+//        charcoal: (#343A40, #6C757D1A),
+//        dark:     (#212529, #6C757D1A)
+//);
 
 .tag-label {
   display: inline-flex;

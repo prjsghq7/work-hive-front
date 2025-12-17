@@ -20,19 +20,46 @@ export const userService={
 }
 
 
-export const searchService = {
-    search(name, teamCode, userState) {
-        return apiClient.post("/user/search", null, {
-            params: { name, teamCode, userState }
-        });
-    },
-
+export const subTableListService = {
     getTeamList() {
         return apiClient.get("/user/team-list");
     },
 
     getUserStateList() {
         return apiClient.get("/user/state-list");
+    },
+
+    getRoleList() {
+        return apiClient.get("/user/role-list");
     }
 }
 
+export const searchService = {
+    search(name, teamCode, userState) {
+        return apiClient.post("/user/search", null, {
+            params: { name, teamCode, userState }
+        });
+    }
+}
+
+export const editService = {
+    getInfo(index) {
+        return apiClient.get("/user/info", {
+            params: { index }
+        });
+    },
+
+    edit(form) {
+        return apiClient.patch("/user/info", {
+            index: form.index,
+            empId: form.empId,
+            name: form.name,
+            teamCode: form.teamCode,
+            roleCode: form.roleCode,
+            userState: form.userState,
+            email: form.email,
+            phoneNumber: form.phoneNumber,
+            totalDayOffs: form.totalDayOffs
+        });
+    }
+}
