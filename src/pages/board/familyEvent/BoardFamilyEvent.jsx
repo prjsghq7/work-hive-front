@@ -1,47 +1,67 @@
-import "../../../assets/common/Table.min.css"
+import "../../../assets/Common.min.css"
+import {useApi} from "../../../hooks/useApi.js";
+import {useEffect} from "react";
+import axios from "axios";
+import {API_BASE_URL} from "../../../configs/apiConfig.js";
+import {Link} from "react-router-dom";
 
 function BoardFamilyEvent() {
+    const {data, loading, error, run} = useApi();
+
+    // 전체 게시글 조회
+    useEffect(() => {
+        run(() => axios.get(`${API_BASE_URL}/board/family-event`));
+    }, [run]);
+
     return (
         <div className="board-container">
 
-            {/* 검색창 */}
-            <div className="board-search-box">
-                <input type="text" placeholder="Search for..." />
-                <button>🔍</button>
-            </div>
-
-            {/* 제목 */}
-            <h2 className="board-title">게시판</h2>
+            {/*/!* 검색창 *!/*/}
+            {/*<div className="board-search-box">*/}
+            {/*    <input type="text" placeholder="Search for..."/>*/}
+            {/*    <button>*/}
+            {/*        <img src={searchIcon} alt="검색"/>*/}
+            {/*    </button>*/}
+            {/*</div>*/}
 
             {/* 카드 형태 테이블 */}
             <div className="board-card">
-                <h2 className="board-card-title">경조사 관련</h2>
+
+                <div className="board-header">
+                    <h2 className="board-card-title"></h2>
+
+                    <Link to="/board/new" className="btn-primary">
+                        NEW
+                    </Link>
+                </div>
 
                 <table className="board-table">
                     <thead>
                     <tr>
                         <th className="first">번호</th>
                         <th className="col-flex title">제목</th>
+                        <th className="last">작성자</th>
+                        <th className="last">조회수</th>
                         <th className="last">날짜</th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td className="col-flex">내용내용내용내용내용내용내용내용내용내용내용내용</td>
-                        <td>2025.12.02</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td className="col-flex">내용내용내용내용내용내용내용내용내용내용내용내용</td>
-                        <td>2025.12.02</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td className="col-flex">내용내용내용내용내용내용내용내용내용내용내용내용</td>
-                        <td>2025.12.02</td>
-                    </tr>
+                    {data?.map((item) => (
+                        <tr key={item.index}>
+                            <td>
+                                {item.index}
+                            </td>
+                            <td>
+                                <Link to={`/board/detail/${item.index}`}>
+                                    {item.title}
+                                </Link>
+                            </td>
+                            <td>{item.empId}</td>
+                            <td>{item.view}</td>
+                            <td>{item.createdAt?.split("T")[0]}</td>
+                        </tr>
+                    ))}
                     </tbody>
                 </table>
             </div>

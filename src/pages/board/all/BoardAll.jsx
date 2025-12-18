@@ -1,4 +1,3 @@
-import "../../../assets/common/Table.min.css"
 import "../../../assets/Common.min.css"
 
 import {Link} from "react-router-dom";
@@ -13,19 +12,19 @@ function BoardAll() {
 
     // 전체 게시글 조회
     useEffect(() => {
-        run(() => axios.get(`${API_BASE_URL}/boards`));
+        run(() => axios.get(`${API_BASE_URL}/board`));
     }, [run]);
 
     return (
         <div className="board-container">
 
-            {/* 검색창 */}
-            <div className="board-search-box">
-                <input type="text" placeholder="Search for..."/>
-                <button>
-                    <img src={searchIcon} alt="검색"/>
-                </button>
-            </div>
+            {/*/!* 검색창 *!/*/}
+            {/*<div className="board-search-box">*/}
+            {/*    <input type="text" placeholder="Search for..."/>*/}
+            {/*    <button>*/}
+            {/*        <img src={searchIcon} alt="검색"/>*/}
+            {/*    </button>*/}
+            {/*</div>*/}
 
             {/* 카드 형태 테이블 */}
             <div className="board-card">
@@ -62,7 +61,7 @@ function BoardAll() {
                             </td>
                             <td>{item.empId}</td>
                             <td>{item.view}</td>
-                            <td>{item.createdAt}</td>
+                            <td>{item.createdAt?.split("T")[0]}</td>
                         </tr>
                     ))}
                     </tbody>
