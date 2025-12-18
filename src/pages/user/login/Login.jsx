@@ -13,7 +13,7 @@ function Login() {
     const [password, setPassword] = useState("");
 
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { getMyInfo } = useAuth();
     const { run, reset, loading } = useApi();
 
     const handleSubmit = async (e) => {
@@ -33,7 +33,7 @@ function Login() {
 
             if (res?.success) {
                 // res.data = { emp_id, accessToken } 형태라고 가정
-                login(res.data);
+                await getMyInfo(res.data);
                 navigate("/", { replace: true });
                 return;
             }

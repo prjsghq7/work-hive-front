@@ -37,7 +37,7 @@ export function AuthProvider({ children }) {
 
     const isLoggedIn = !!user;
 
-    const login = async (loginResult) => {
+    const getMyInfo = async (loginResult) => {
         localStorage.setItem("accessToken", loginResult.accessToken);
         localStorage.setItem("empId", loginResult.emp_id);
 
@@ -58,7 +58,7 @@ export function AuthProvider({ children }) {
     };
 
     const value = useMemo(
-        () => ({ user, isLoggedIn, loading, login, logout }),
+        () => ({ user, isLoggedIn, loading, getMyInfo, logout }),
         [user, isLoggedIn, loading]
     );
 

@@ -46,7 +46,6 @@ function Home() {
         <div style={{textAlign: 'center', marginTop: '100px'}}>
             <h1>Home Page</h1>
             <p>home first page</p>
-            <Loading/>
 
             <button onClick={handleTestClick} disabled={loading}>
                 {loading ? "요청중 ..." : "Test api 호출"}
