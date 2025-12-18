@@ -16,16 +16,26 @@
 }
 
 .modal-header {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 0.5rem;
   padding: 1rem 1.25rem;
   border-bottom: 1px solid #CDCDCD;
 }
 
 .modal-title {
   font-size: 1.25rem;
-  margin: 0;
+}
+
+.modal-icon {
+  width: 1.375rem;
+  height: 1.375rem;
+}
+
+.modal-stretch {
+  flex-grow: 1;
 }
 
 .modal-close {
@@ -45,18 +55,6 @@
   gap: 0.5rem;
   padding: 1rem 1.25rem;
   border-top: 1px solid #CDCDCD;
-}
-
-.modal-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 0;
-}
-
-.modal-label {
-  color: #707070;
-  font-size: 0.9375rem;
 }
 
 /*# sourceMappingURL=Modal.css.map */

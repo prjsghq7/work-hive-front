@@ -5,6 +5,8 @@ import {useApi} from "../../../hooks/useApi.js";
 import UserEditModal from "../../../components/user/UserEditModal.jsx";
 import UserDetailModal from "../../../components/user/UserDetailModal.jsx";
 
+import { useDialog } from "../../../contexts/modal/DialogContext.jsx";
+
 import "./UserSearch.min.css";
 
 export default function UserSearch() {
@@ -25,6 +27,8 @@ export default function UserSearch() {
         대기: "yellow",
         퇴사: "wine"
     };
+
+    const { openDialog } = useDialog();
 
     const [name, setName] = useState("");
     const [teamCode, setTeamCode] = useState("");
@@ -65,6 +69,7 @@ export default function UserSearch() {
 
             console.log(res);
             setUserList(res.data.userList);
+            openDialog("검색 완료", "검색이 완료되었습니다.");
         } catch (err) {
             if (err.response) {
                 const {message, code} = err.response.data;
@@ -72,6 +77,7 @@ export default function UserSearch() {
                 console.log("백엔드 응답:", err.response.data);
                 console.log(message || `검색 실패 ${code || "알 수 없는 오류"}`);
             }
+            openDialog("검색 실패", "알 수 없는 오류가 발생하였습니다.", "warning");
         }
     }
 

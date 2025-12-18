@@ -68,6 +68,7 @@ export default function UserEditModal({ targetIndex, onClose }) {
             <div className="modal" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
                     <h3 className="modal-title">회원 수정</h3>
+                    <span className="modal-stretch"></span>
                     <button type="button" className="modal-close" onClick={onClose}>
                         ×
                     </button>

@@ -16,16 +16,27 @@
 }
 
 .modal-header {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 0.5rem;
+
   padding: 1rem 1.25rem;
   border-bottom: 1px solid #CDCDCD;
 }
 
 .modal-title {
   font-size: 1.25rem;
-  margin: 0;
+}
+
+.modal-icon {
+  width: 1.375rem;
+  height: 1.375rem;
+}
+
+.modal-stretch {
+  flex-grow: 1;
 }
 
 .modal-close {
