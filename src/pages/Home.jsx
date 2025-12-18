@@ -59,6 +59,7 @@ function Home() {
                 filter={filter}
                 onChangeFilter={setFilter}
                 labels={["전체", "일정", "연차"]} // ← 페이지마다 다르게 변경 가능
+                className="calendar-filter-container"
             />
 
             {/* 🔥 캘린더 표시 */}

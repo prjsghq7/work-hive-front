@@ -68,12 +68,13 @@ function LeaveMain() {
     }, []);
 
     return (
-        <div style={{textAlign: 'center', marginTop: '100px'}}>
+        <div className="leave-main-container">
             {/* 페이지에서 필터 표시 */}
             <CalendarFilterBar
                 filter={filter}
                 onChangeFilter={setFilter}
                 labels={["팀", "개인"]} // ← 페이지마다 다르게 변경 가능
+                className="calendar-filter-container"
             />
 
             {/* 캘린더 표시 */}

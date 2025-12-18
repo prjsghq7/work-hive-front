@@ -3,6 +3,7 @@ import "./assets/common/Button.min.css";
 import "./assets/common/Filter.min.css";
 import "./assets/common/Input.min.css";
 import "./assets/common/Modal.min.css";
+import "./assets/common/RadioButton.min.css";
 import "./assets/common/Table.min.css";
 import "./assets/common/TagLabel.min.css";
 
