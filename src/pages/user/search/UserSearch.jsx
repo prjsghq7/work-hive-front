@@ -168,7 +168,7 @@ export default function UserSearch() {
                     <div className="button-wrapper">
                         <button
                             type="button"
-                            className="-object-button --blue"
+                            className="-button --blue"
                             onClick={handleReset}
                             disabled={loading}
                         >
@@ -176,7 +176,7 @@ export default function UserSearch() {
                         </button>
                         <button
                             type="submit"
-                            className="-object-button --white"
+                            className="-button --white"
                             disabled={loading}
                         >
                             {loading ? "검색 중..." : "검색"}

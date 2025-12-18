@@ -62,7 +62,7 @@ export function DialogProvider({ children }) {
                         <div className="modal-actions">
                             <button
                                 type="button"
-                                className="-object-button --blue"
+                                className="-button --blue"
                                 onClick={closeDialog}
                             >
                                 확인

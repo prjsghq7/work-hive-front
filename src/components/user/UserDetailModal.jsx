@@ -23,7 +23,7 @@ export default function UserDetailModal({ targetIndex, onClose }) {
                 <div className="modal-actions">
                     <button
                         type="button"
-                        className="-object-button --blue"
+                        className="-button --blue"
                         onClick={onClose}
                     >
                         확인

@@ -160,7 +160,7 @@ export default function UserEditModal({ targetIndex, onClose }) {
                 </div>
 
                 <div className="modal-actions">
-                    <button type="button" className="-object-button --blue">
+                    <button type="button" className="-button --blue">
                         저장
                     </button>
                 </div>
