@@ -1,6 +1,6 @@
 // CalendarFilterBar.jsx
 
-export default function CalendarFilterBar({ filter, onChangeFilter, labels, labelClassName = "-object-radio-label-underline", className = "" }) {
+export default function CalendarFilterBar({ filter, onChangeFilter, labels, labelClassName = "-radio-label-underline", className = "" }) {
     return (
         <div className={className}>
             {labels.map(label => (
@@ -14,7 +14,7 @@ export default function CalendarFilterBar({ filter, onChangeFilter, labels, labe
                         value={label}
                         checked={filter === label}
                         onChange={() => onChangeFilter(label)}
-                        className="-object-radio"
+                        className="-radio"
                     />
                     {label}
                 </label>

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /* 공통 라디오 버튼 숨김 */
-.-object-radio {
+.-radio {
   position: absolute;
   opacity: 0;
   width: 0;
@@ -10,7 +10,7 @@
 }
 
 /* 밑줄 스타일 라벨 */
-.-object-radio-label-underline {
+.-radio-label-underline {
   font-size: 1rem;
   color: #9c9c9c;
   padding-bottom: 0.375rem;
@@ -20,14 +20,14 @@
   display: inline-flex;
   align-items: center;
 }
-.-object-radio-label-underline:hover {
+.-radio-label-underline:hover {
   color: #666;
 }
-.-object-radio-label-underline.active {
+.-radio-label-underline.active {
   color: #e34a3a;
   font-weight: 600;
 }
-.-object-radio-label-underline.active::after {
+.-radio-label-underline.active::after {
   content: "";
   position: absolute;
   left: 0;
@@ -39,7 +39,7 @@
 }
 
 /* 테두리 스타일 라벨 */
-.-object-radio-label-bordered {
+.-radio-label-bordered {
   border: 0.0625rem solid #c7e0ff;
   padding: 0.5rem 1rem;
   border-radius: 2rem;
@@ -52,11 +52,11 @@
   display: inline-flex;
   align-items: center;
 }
-.-object-radio-label-bordered:hover {
+.-radio-label-bordered:hover {
   background-color: #e1efff;
   border-color: #9fcbff;
 }
-.-object-radio-label-bordered.active {
+.-radio-label-bordered.active {
   border-color: #abd1fd;
   background-color: #0065e0;
   color: #ffffff;

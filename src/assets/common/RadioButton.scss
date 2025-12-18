@@ -1,7 +1,7 @@
 @import "../Def.scss";
 
 /* 공통 라디오 버튼 숨김 */
-.-object-radio {
+.-radio {
     position: absolute;
     opacity: 0;
     width: 0;
@@ -11,7 +11,7 @@
 }
 
 /* 밑줄 스타일 라벨 */
-.-object-radio-label-underline {
+.-radio-label-underline {
     font-size: 1rem;
     color: #9c9c9c;
     padding-bottom: 0.375rem;
@@ -43,7 +43,7 @@
 }
 
 /* 테두리 스타일 라벨 */
-.-object-radio-label-bordered {
+.-radio-label-bordered {
     border: 0.0625rem solid #c7e0ff;
     padding: 0.5rem 1rem;
     border-radius: 2rem;
