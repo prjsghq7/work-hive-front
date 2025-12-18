@@ -24,7 +24,7 @@ export function AuthProvider({ children }) {
                 const res = await run(() => userService.getMyInfo());
                 console.log("getMyInfo raw res:", res);
 
-                const me = res.data;   // ⭐ 핵심
+                const me = res?.data ?? res;// ⭐ 핵심
                 setUser(me);
             } catch (e) {
                 console.log("getMyInfo 실패:", e);

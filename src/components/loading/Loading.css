@@ -1,0 +1,45 @@
+.loading-container {
+  position: fixed;
+  inset: 0;
+  background: rgba(38, 34, 34, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.loading-container .spinner {
+  position: relative;
+  width: 48px;
+  height: 48px;
+}
+.loading-container .spinner::before,
+.loading-container .spinner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 4px solid transparent;
+}
+.loading-container .spinner::before {
+  border-top-color: #0f4c75;
+  border-left-color: #0f4c75;
+  animation: spin 1s linear infinite;
+}
+.loading-container .spinner::after {
+  inset: 6px;
+  border-top-color: rgba(59, 130, 246, 0.4);
+  animation: spin 0.6s linear reverse infinite;
+}
+.loading-container p {
+  margin-top: 0.625rem;
+  color: white;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*# sourceMappingURL=Loading.css.map */

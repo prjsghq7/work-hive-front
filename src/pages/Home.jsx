@@ -8,6 +8,7 @@ import CalendarFilterBar from "../components/calendars/CalendarFilterBar.jsx";
 
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import Loading from "../components/loading/Loading.jsx";
 
 function Home() {
     // const {data,error,loading,callApi,reset} = useApi();
@@ -45,6 +46,7 @@ function Home() {
         <div style={{textAlign: 'center', marginTop: '100px'}}>
             <h1>Home Page</h1>
             <p>home first page</p>
+            <Loading/>
 
             <button onClick={handleTestClick} disabled={loading}>
                 {loading ? "요청중 ..." : "Test api 호출"}
@@ -63,7 +65,6 @@ function Home() {
             <Calendar filter={filter}/>
             {isLoggedIn ? (<button onClick={handleLogout}>로그아웃</button>) : (
                 <button onClick={() => navigate("/user/login")}>로그인</button>)}
-
         </div>
 
     );
