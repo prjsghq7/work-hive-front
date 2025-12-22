@@ -1,7 +1,12 @@
 import { subTableListService, editService } from "../../services/user/userService.js";
-import { useEffect, useState } from "react";
+
+import { useDialog } from "../../contexts/modal/DialogContext.jsx";
+
+import {useContext, useEffect, useState} from "react";
 
 export default function UserEditModal({ targetIndex, onClose }) {
+    const { openDialog } = useDialog();
+
     const [teamList, setTeamList] = useState([]);
     const [stateList, setStateList] = useState([]);
     const [roleList, setRoleList] = useState([]);
@@ -24,6 +29,7 @@ export default function UserEditModal({ targetIndex, onClose }) {
                 setRoleList(roleRes.data.data.codes);
             } catch (e) {
                 console.error("필터 목록 로딩 실패:", e);
+                openDialog("필터 목록 로딩 실패", "알 수 없는 오류가 발생하였습니다.", "warning");
             }
         };
 
@@ -45,7 +51,7 @@ export default function UserEditModal({ targetIndex, onClose }) {
                     totalDayOffs: data.totalDayOffs ?? 0
                 });
             } catch (e) {
-                console.error("회원 정보 로딩 실패:", e);
+                openDialog("회원 목록 로딩 실패", "알 수 없는 오류가 발생하였습니다.", "warning");
             }
         };
 
@@ -61,6 +67,17 @@ export default function UserEditModal({ targetIndex, onClose }) {
             ...prev,
             [name]: value
         }));
+    };
+
+    const handleSave = async () => {
+        try {
+            const res = await editService.edit(form);
+            openDialog("회원 정보 수정", "회원 정보 수정에 완료 하였습니다.");
+
+            onClose(); // 모달 닫기
+        } catch (e) {
+            openDialog("회원 정보 수정", "알 수 없는 오류가 발생하였습니다.", "warning");
+        }
     };
 
     return (
@@ -99,32 +116,49 @@ export default function UserEditModal({ targetIndex, onClose }) {
 
                         <div>
                             <label>팀 코드</label>
-                            <input
-                                type="text"
+                            <select
                                 name="teamCode"
                                 value={form.teamCode}
                                 onChange={handleChange}
-                            />
+                            >
+                                <option value="">선택</option>
+                                {teamList.map(team => (
+                                    <option key={team.code} value={team.code}>
+                                        {team.displayText}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
 
                         <div>
                             <label>권한 코드</label>
-                            <input
-                                type="text"
+                            <select
                                 name="roleCode"
                                 value={form.roleCode}
                                 onChange={handleChange}
-                            />
+                            >
+                                <option value="">선택</option>
+                                {roleList.map(role => (
+                                    <option key={role.code} value={role.code}>
+                                        {role.displayText}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
 
                         <div>
                             <label>사용자 상태</label>
-                            <input
-                                type="text"
+                            <select
                                 name="userState"
                                 value={form.userState}
                                 onChange={handleChange}
-                            />
+                            >
+                                {stateList.map(state => (
+                                    <option key={state.code} value={state.code}>
+                                        {state.displayText}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
 
                         <div>
@@ -160,7 +194,7 @@ export default function UserEditModal({ targetIndex, onClose }) {
                 </div>
 
                 <div className="modal-actions">
-                    <button type="button" className="-button --blue">
+                    <button type="button" className="-button --blue" onClick={handleSave}>
                         저장
                     </button>
                 </div>
