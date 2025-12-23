@@ -19,6 +19,25 @@ export const userService={
     }
 }
 
+export const permissionService = {
+    async getPermission() {
+        try {
+            const res = await apiClient.get("/user/permission");
+            return res.data; // "ADMIN" | "USER" | "NOT_LOGIN" | "UNKNOWN"
+        } catch (e) {
+            console.error("getPermission failed", {
+                message: e?.message,
+                status: e?.response?.status,
+            });
+            return "ERROR";
+        }
+    },
+
+    async isAdmin() {
+        const permission = await this.getPermission();
+        return permission === "ADMIN";
+    }
+};
 
 export const subTableListService = {
     getTeamList() {

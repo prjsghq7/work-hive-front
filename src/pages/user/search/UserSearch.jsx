@@ -1,6 +1,7 @@
 import {useState, useEffect} from "react";
 import {subTableListService, searchService} from "../../../services/user/userService.js";
 import {useApi} from "../../../hooks/useApi.js";
+import {useIsAdmin} from "../../../hooks/user/usePermission.js";
 
 import UserEditModal from "../../../components/user/UserEditModal.jsx";
 import UserDetailModal from "../../../components/user/UserDetailModal.jsx";
@@ -27,6 +28,8 @@ export default function UserSearch() {
         대기: "yellow",
         퇴사: "wine"
     };
+
+    const isAdmin = useIsAdmin();
 
     const { openDialog } = useDialog();
 
@@ -88,8 +91,6 @@ export default function UserSearch() {
         reset();
     };
 
-    const isAdmin = true;
-
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [targetIndex, setTargetIndex] = useState(null);
 
@@ -102,6 +103,10 @@ export default function UserSearch() {
         setTargetIndex(null);
         setIsModalOpen(false);
     };
+
+    if (isAdmin === null) {
+        return null;
+    }
 
     return (
         <>
