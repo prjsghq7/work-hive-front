@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import "./Sidebar.min.css";
+import {useAuth} from "./../../pages/user/AuthContext.jsx";
 
 export default function Sidebar() {
     const location = useLocation();
@@ -48,12 +49,24 @@ export default function Sidebar() {
         }
     ];
 
+    const navigate = useNavigate();
     const [openMenu, setOpenMenu] = useState("user");
     // const [openMenu, setOpenMenu] = useState(null);
 
     const handleToggle = (id) => {
         setOpenMenu((prev) => (prev === id ? null : id));
     };
+
+    const {logout, isLoggedIn} = useAuth();
+    const handleLogout = () => {
+        if (!isLoggedIn) {
+            alert("로그인 부터 해주세요.");
+            navigate("/user/login");
+            return;
+        } else {
+            logout();
+        }
+    }
 
     return (
         <aside className="sidebar">
@@ -117,6 +130,10 @@ export default function Sidebar() {
                     return null;
                 })}
             </nav>
+
+            <div className="sidebar-footer">
+                <button type="button" className="sidebar-logout" onClick={handleLogout}>로그아웃</button>
+            </div>
         </aside>
     );
 }
