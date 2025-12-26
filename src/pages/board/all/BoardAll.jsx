@@ -12,7 +12,7 @@ function BoardAll() {
 
     // 전체 게시글 조회
     useEffect(() => {
-        run(() => axios.get(`${API_BASE_URL}/board`));
+        run(() => axios.get(`${API_BASE_URL}/board/all`));
     }, [run]);
 
     return (
@@ -49,17 +49,15 @@ function BoardAll() {
                     </thead>
 
                     <tbody>
-                    {data?.map((item) => (
+                    {data?.data?.boards?.map((item) => (
                         <tr key={item.index}>
-                            <td>
-                                {item.index}
-                            </td>
+                            <td>{item.index}</td>
                             <td>
                                 <Link to={`/board/detail/${item.index}`}>
                                     {item.title}
                                 </Link>
                             </td>
-                            <td>{item.empId}</td>
+                            <td>{item.name}</td>
                             <td>{item.view}</td>
                             <td>{item.createdAt?.split("T")[0]}</td>
                         </tr>

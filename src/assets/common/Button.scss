@@ -50,6 +50,16 @@
     }
   }
 
+  &.--red {
+    background-color: #dc3545;
+    border-color: #c04a4a;
+    color: #ffffff;
+
+    &:hover:not(:disabled) {
+      background-color: #cf0541;
+    }
+  }
+
   &:disabled {
     opacity: 0.65;
     cursor: default;

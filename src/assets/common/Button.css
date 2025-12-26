@@ -40,6 +40,14 @@
 .-button.--white:hover:not(:disabled) {
   background-color: #f3f4f6;
 }
+.-button.--red {
+  background-color: #dc3545;
+  border-color: #c04a4a;
+  color: #ffffff;
+}
+.-button.--red:hover:not(:disabled) {
+  background-color: #cf0541;
+}
 .-button:disabled {
   opacity: 0.65;
   cursor: default;

@@ -44,7 +44,7 @@ export default function Sidebar() {
             children: [
                 { label: "전체보기", path: "/board/all" },
                 { label: "공지사항", path: "/board/notice" },
-                { label: "경조사 관련", path: "/board/family-event" }
+                { label: "경조사", path: "/board/family-event" }
             ]
         }
     ];

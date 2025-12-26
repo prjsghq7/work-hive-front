@@ -23,7 +23,7 @@ function BoardNew() {
 
         try {
             await run(() =>
-                axios.post(`${API_BASE_URL}/boards`, {
+                axios.post(`${API_BASE_URL}/board`, {
                     title,
                     content,
                     type: Number(type),

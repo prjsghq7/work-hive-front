@@ -30,6 +30,7 @@ const BoardNotice = lazy(() => import("./pages/board/notice/BoardNotice.jsx"));
 const BoardFamilyEvent = lazy(() => import("./pages/board/familyEvent/BoardFamilyEvent.jsx"));
 const BoardNew = lazy(() => import("./pages/board/new/BoardNew.jsx"));
 const BoardDetail = lazy(() => import("./pages/board/detail/BoardDetail.jsx"));
+const BoardModify = lazy(() => import("./pages/board/modify/BoardModify.jsx"));
 
 function App() {
     return (
@@ -52,6 +53,7 @@ function App() {
                         <Route path="board/family-event" element={<BoardFamilyEvent/>}></Route>
                         <Route path="board/new" element={<BoardNew/>}></Route>
                         <Route path="board/detail/:id" element={<BoardDetail/>}></Route>
+                        <Route path="board/modify/:id" element={<BoardModify/>}></Route>
                     </Route>
 
                     <Route path="/user/login" element={<Login/>}/>
