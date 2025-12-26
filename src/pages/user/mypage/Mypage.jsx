@@ -1,69 +1,3 @@
-// import {useAuth} from "../AuthContext.jsx";
-// import Loading from "../../../components/loading/Loading.jsx";
-// import {useRef, useState} from "react";
-//
-// export default function Mypage() {
-//     const {user, loading} = useAuth();
-//
-//     const fileRef = useRef(null);
-//     const [previewUrl, setPreviewUrl] = useState(null);
-//     const [profileImage, setProfileImage] = useState(null);
-//     if (loading) return <Loading message="불러오는중입니다."/>;
-//     if (!user) return <div>정보가 없습니다.</div>;
-//
-//     const onClickChange = () => {
-//         fileRef.current?.click(); //changeBtn클릭 시 input 클릭
-//     }
-//     const onChangeFile = (e) => {
-//         const file = e.target.files?.[0];
-//         if (!file) {
-//             return;
-//         }
-//         const reader = new FileReader();
-//         reader.onload = (ev) => setPreviewUrl(ev.target.result);
-//         reader.readAsDataURL(file);
-//
-//         setProfileImage(file);
-//     }
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//
-//     }
-//     return (
-//         <div>
-//             <h2>내 정보</h2>
-//             <div>{user.name ?? "-"}</div>
-//
-//             <img
-//                 src={previewUrl ?? "/user/profile-image"} // 선택하면 preview, 아니면 서버 이미지
-//                 alt="프로필 이미지"
-//                 style={{width: 120, height: 120, borderRadius: "50%"}}
-//             />
-//
-//             {/* 실제 파일 input은 숨기고 ref로 클릭만 */}
-//             <input
-//                 ref={fileRef}
-//                 type="file"
-//                 accept="image/*"
-//                 style={{display: "none"}}
-//                 onChange={onChangeFile}
-//             />
-//
-//             <button type="button" onClick={onClickChange}>
-//                 이미지 변경
-//             </button>
-//
-//             <div>{user.email ?? "-"}</div>
-//             {profileImage && <div>선택됨:{profileImage.name}</div>}
-//             {previewUrl && <div>선택됨:{previewUrl.name}</div>}
-//
-//             <button type="submit" onClick={handleSubmit}></button>
-//
-//             {/* 여기서 profileImage를 FormData로 서버에 보내면 됨 */}
-//             {/* 예: profileImage && <div>선택됨: {profileImage.name}</div> */}
-//         </div>
-//     );
-// }
 
 import {useAuth} from "../AuthContext.jsx";
 import Loading from "../../../components/loading/Loading.jsx";
@@ -163,7 +97,7 @@ export default function Mypage() {
             previewUrl={previewUrl}
             serverImgUrl={serverImgUrl}
             onClickChange={onClickChange}
-            onChanegFile={onChangeFile}
+            onChangeFile={onChangeFile}
             handleSubmit={handleSubmit}/>
     );
 }
