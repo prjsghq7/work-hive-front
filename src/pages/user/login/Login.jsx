@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 
 import { useAuth } from "../AuthContext.jsx";
 import "../../../assets/Common.min.css";
@@ -76,7 +76,9 @@ function Login() {
                         />
                     </div>
                 </div>
-
+                <Link to="/user/register" className="register-link">
+                    회원가입
+                </Link>
                 <button className="-object-button --blue" type="submit" disabled={loading}>
                     {loading ? "로그인 중" : "로그인"}
                 </button>

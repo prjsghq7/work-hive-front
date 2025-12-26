@@ -54,18 +54,18 @@ function App() {
                         <Route path="board/new" element={<BoardNew/>}></Route>
                         <Route path="board/detail/:id" element={<BoardDetail/>}></Route>
                         <Route path="board/modify/:id" element={<BoardModify/>}></Route>
+                        <Route
+                            path="/user/edit"
+                            element={
+                                <RequireAuth>
+                                    <Mypage/>
+                                </RequireAuth>
+                            }
+                        />
                     </Route>
 
                     <Route path="/user/login" element={<Login/>}/>
                     <Route path="/user/register" element={<Register/>}/>
-                    <Route
-                        path="/user/me"
-                        element={
-                            <RequireAuth>
-                                <Mypage/>
-                            </RequireAuth>
-                        }
-                    />
                 </Routes>
             </Suspense>
         </DialogProvider>
