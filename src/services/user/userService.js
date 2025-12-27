@@ -104,3 +104,11 @@ export const editService = {
         return apiClient.get("/user/profile-image", { responseType: "blob" });
     },
 }
+
+export const detailService = {
+    getDetailInfo(index) {
+        return apiClient.get("/user/detail-info", {
+            params: {index}
+        });
+    },
+}
