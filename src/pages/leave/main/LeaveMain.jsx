@@ -39,8 +39,10 @@ function LeaveMain() {
     useEffect(() => {
         const fetchCalendar = async () => {
             try {
-                const { data } = await leaveService.getCalendarData();
-                const mapped = data.map((item) => ({
+                const response = await leaveService.getCalendarData();
+                console.log(response);
+                const calendarList = response.data.data.calendarList || [];
+                const mapped = calendarList.map((item) => ({
                     id: `leave-${item.index}`,
                     title: item.typeText,
                     start: item.startDate,
