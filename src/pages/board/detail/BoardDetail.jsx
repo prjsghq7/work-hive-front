@@ -16,7 +16,7 @@ function BoardDetail() {
 
     useEffect(() => {
         run(async () => {
-            const response = await axios.get(`${API_BASE_URL}/board/${id}`);
+            const response = await axios.get(`${API_BASE_URL}/board/detail/${id}`);
             console.log("📌 전체 응답(response):", response);
             console.log("📌 서버 JSON (response.data):", response.data);
             return response;
@@ -57,7 +57,7 @@ function BoardDetail() {
 
 
                 <div className="detail-info">
-                    <span>작성자: {board.empId}</span>
+                    <span>작성자: {board.name}</span>
                     <span>조회수: {board.view}</span>
                     <span>작성일: {date} {time}</span>
                 </div>

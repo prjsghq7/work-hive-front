@@ -7,10 +7,12 @@ import "./BoardNew.min.css";
 
 import { useApi } from "../../../hooks/useApi.js";
 import axios from "axios";
-import {API_BASE_URL} from "../../../configs/apiConfig.js"; // axios import 필요함
+import {API_BASE_URL} from "../../../configs/apiConfig.js";
+import {useAuth} from "../../user/AuthContext.jsx"; // axios import 필요함
 
 function BoardNew() {
     const navigate = useNavigate();
+    const { user } = useAuth();
     const { run, loading, error } = useApi();
 
     // 입력값 상태
@@ -27,7 +29,7 @@ function BoardNew() {
                     title,
                     content,
                     type: Number(type),
-                    empId: 1
+                    empId: user.empId
                 })
             );
 

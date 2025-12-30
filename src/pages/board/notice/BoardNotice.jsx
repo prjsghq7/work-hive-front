@@ -30,7 +30,7 @@ function BoardNotice() {
                 <div className="board-header">
                     <h2 className="board-card-title"></h2>
 
-                    <Link to="/board/new" className="btn-primary">
+                    <Link to="/board/new" className="-button --blue">
                         NEW
                     </Link>
                 </div>

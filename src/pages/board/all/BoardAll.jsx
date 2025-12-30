@@ -1,4 +1,5 @@
 import "../../../assets/Common.min.css"
+import "./BoardAll.min.css"
 
 import {Link} from "react-router-dom";
 import searchIcon from "../../../assets/images/search.png";
@@ -32,7 +33,7 @@ function BoardAll() {
                 <div className="board-header">
                     <h2 className="board-card-title"></h2>
 
-                    <Link to="/board/new" className="btn-primary">
+                    <Link to="/board/new" className="-button --blue">
                         NEW
                     </Link>
                 </div>
