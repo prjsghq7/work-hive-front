@@ -1,4 +1,3 @@
-
 import {useAuth} from "../AuthContext.jsx";
 import Loading from "../../../components/loading/Loading.jsx";
 import {useEffect, useRef, useState} from "react";
@@ -6,9 +5,14 @@ import {editService} from "../../../services/user/userService.js";
 import MypageForm from "./MypageForm.jsx";
 
 export default function Mypage() {
-    const {user, loading} = useAuth();
+    const {user, loading, refreshUser} = useAuth();
     const fileRef = useRef(null);
-
+    const title = user.name ?? "";
+    const totalDayOff = user.totalDayOffs;
+    const roleCode = user.roleCode;
+    const teamCode = user.teamCode;
+    const birth=user.birth;
+    const remainingDayOffs = user.remainingDayOffs;
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -78,6 +82,7 @@ export default function Mypage() {
             setPreviewUrl(null);
 
             await loadServerImage(); // ✅ 업로드 후 서버 이미지 다시 로드
+            await refreshUser();
         } catch (err) {
             console.error(err);
             alert("수정에 실패했습니다.");
@@ -86,8 +91,14 @@ export default function Mypage() {
 
     return (
         <MypageForm
+            title={title}
             fileRef={fileRef}
             name={name}
+            birth={birth}
+            remainingDayOffs={remainingDayOffs}
+            teamCode={teamCode}
+            totalDayOff={totalDayOff}
+            roleCode={roleCode}
             setName={setName}
             email={email}
             setEmail={setEmail}

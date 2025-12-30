@@ -1,3 +1,184 @@
+@charset "UTF-8";
+.mypage {
+  width: 100%;
+  height: 948px;
+  padding: 24px 0;
+}
 
+/* 전체 카드 */
+.info {
+  width: 880px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 22px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.info label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2b2b2b;
+  white-space: nowrap;
+}
+.info input {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 14px;
+  outline: none;
+}
+.info input:focus {
+  border-color: #2563eb;
+}
+.info span {
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #222;
+}
+.info span:hover {
+  background: #fafafa;
+}
+
+/* 상단 이미지 섹션 */
+.image {
+  height: 260px;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  background: #fbfbfb;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 18px;
+  align-items: center;
+}
+.image .image-box {
+  width: 240px;
+  height: 228px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.image .image-box img {
+  width: 170px;
+  height: 170px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 1px solid #e2e2e2;
+  background: #eaeaea;
+}
+.image .image-box .profile-placeholder {
+  width: 170px;
+  height: 170px;
+  border-radius: 999px;
+  background: #eaeaea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #666;
+  border: 1px solid #e2e2e2;
+}
+.image .image-box button {
+  width: 120px;
+  height: 34px;
+  border-radius: 10px;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.image .info-box {
+  height: 228px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+}
+.image .info-box .row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+/* 하단 상세 섹션 */
+.detail {
+  width: 100%;
+  min-height: 260px;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  background: #fff;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3rem;
+}
+.detail .row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+/* 버튼 영역 */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.actions button[type=submit] {
+  width: 140px;
+  height: 44px;
+  border: 0;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+.actions button[type=submit]:hover {
+  filter: brightness(0.97);
+}
+.actions button[type=submit]:active {
+  transform: translateY(1px);
+}
+
+/* 반응형 */
+@media (max-width: 920px) {
+  .info {
+    width: 94vw;
+    min-height: auto;
+  }
+  .image {
+    height: auto;
+    grid-template-columns: 1fr;
+  }
+  .image .image-box {
+    width: 100%;
+    height: auto;
+  }
+  .detail {
+    grid-template-columns: 1fr;
+  }
+  .detail .row {
+    grid-template-columns: 90px 1fr;
+  }
+  .detail .row.full {
+    grid-column: auto;
+  }
+}
 
 /*# sourceMappingURL=MypageForm.css.map */

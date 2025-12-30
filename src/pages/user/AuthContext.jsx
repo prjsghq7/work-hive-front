@@ -56,11 +56,33 @@ export function AuthProvider({ children }) {
         localStorage.removeItem("empId");
         setUser(null);
     };
+    const refreshUser = async ()=>{
+        const token = localStorage.getItem("accessToken");
+        if(!token){
+            setUser(null);
+            return null;
+        }
+        setLoading(true);
+        try{
+            const res = await run(() => userService.getMyInfo());
+            const me = res?.data ?? res;
+            setUser(me)
+            return me;
+        }catch(e){
+            console.log("refresh 실패", e);
+            setUser(null);
+            return null;
+        }finally {
+            setLoading(false);
+        }
+    }
 
     const value = useMemo(
-        () => ({ user, isLoggedIn, loading, getMyInfo, logout }),
+        () => ({ user, isLoggedIn, loading, getMyInfo, logout,refreshUser }),
         [user, isLoggedIn, loading]
     );
+
+
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

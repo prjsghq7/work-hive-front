@@ -39,6 +39,7 @@ function Login() {
             }
 
             // success가 false로 오는 케이스(서버가 그런 규격이면)
+            console.log(res);
             alert(res?.message || "로그인에 실패했습니다.");
         } catch (err) {
             if (err.response?.data) {
