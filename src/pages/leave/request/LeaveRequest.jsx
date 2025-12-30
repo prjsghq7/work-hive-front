@@ -8,7 +8,8 @@ function LeaveRequest() {
     const {run, loading, error} = useApi();
 
     const [approverId, setApproverId] = useState("");
-    const [type, setType] = useState(""); // 연차, 오전 반차, 오후 반차
+    const [type, setType] = useState(""); // 연차, 오전 반차, 오후 반차, 병가
+    const [reason, setReason] = useState("");
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
 
@@ -18,6 +19,7 @@ function LeaveRequest() {
         const requestData = {
             approverId: approverId,
             type: type,
+            reason: reason,
             startDate: startDate,
             endDate: endDate
         };
@@ -65,8 +67,18 @@ function LeaveRequest() {
                             <option value="1">연차</option>
                             <option value="2">오전 반차</option>
                             <option value="3">오후 반차</option>
-                            {/*<option value="4">병가</option>*/}
+                            <option value="4">병가</option>
                         </select>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        사유:
+                        <input
+                            type="text"
+                            value={reason}
+                            onChange={(e) => setReason(e.target.value)}
+                        />
                     </label>
                 </div>
                 <div>
