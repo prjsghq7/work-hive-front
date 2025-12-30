@@ -42,14 +42,19 @@ function LeaveMain() {
                 const response = await leaveService.getCalendarData();
                 console.log(response);
                 const calendarList = response.data.data.calendarList || [];
-                const mapped = calendarList.map((item) => ({
-                    id: `leave-${item.index}`,
-                    title: item.typeText,
-                    start: item.startDate,
-                    end: item.endDate,
-                    allDay: true,
-                    calendarType: item.calendarType
-                }));
+                const mapped = calendarList.map((item) => {
+                    const end = new Date(item.endDate);
+                    end.setDate(end.getDate() + 1);
+
+                    return {
+                        id: `leave-${item.index}`,
+                        title: item.typeText,
+                        start: item.startDate,
+                        end: end.toISOString().split("T")[0],
+                        allDay: true,
+                        calendarType: item.calendarType
+                    };
+                });
                 setEvents(mapped);
             } catch (e) {
                 console.error("달력 데이터 로드 실패", e);
