@@ -1,4 +1,4 @@
-import {useState,useCallback} from "react";
+import {useState, useCallback} from "react";
 import {API_BASE_URL} from "../configs/apiConfig.js";
 
 export function useApi() {
@@ -28,5 +28,5 @@ export function useApi() {
         setError(null);
     }, []);
 
-    return { data, error, loading, run, reset };
+    return {data, error, loading, run, reset};
 }

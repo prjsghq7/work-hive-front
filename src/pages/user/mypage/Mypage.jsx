@@ -3,16 +3,20 @@ import Loading from "../../../components/loading/Loading.jsx";
 import {useEffect, useRef, useState} from "react";
 import {editService} from "../../../services/user/userService.js";
 import MypageForm from "./MypageForm.jsx";
+import {useDialog} from "../../../contexts/modal/DialogContext.jsx";
+import {useApi} from "../../../hooks/useApi.js";
 
 export default function Mypage() {
     const {user, loading, refreshUser} = useAuth();
     const fileRef = useRef(null);
-    const title = user.name ?? "";
-    const totalDayOff = user.totalDayOffs;
-    const roleCode = user.roleCode;
-    const teamCode = user.teamCode;
-    const birth=user.birth;
-    const remainingDayOffs = user.remainingDayOffs;
+    const title = user?.name ?? "";
+    const totalDayOff = user?.totalDayOffs;
+    const roleCode = user?.roleCode;
+    const teamCode = user?.teamCode;
+    const birth = user?.birth;
+    const remainingDayOffs = user?.remainingDayOffs;
+    const {openDialog} = useDialog();
+    const {run} = useApi();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -23,8 +27,8 @@ export default function Mypage() {
 
     const loadServerImage = async () => {
         try {
-            const res = await editService.getProfileImageBlob();
-            const url = URL.createObjectURL(res.data);
+            const blob = await run(()=>editService.getProfileImageBlob()) ;
+            const url = URL.createObjectURL(blob);
             setServerImgUrl((prev) => {
                 if (prev) URL.revokeObjectURL(prev);
                 return url;
@@ -54,7 +58,7 @@ export default function Mypage() {
         const file = e.target.files?.[0];
         if (!file) return;
         if (!file.type.startsWith("image/")) {
-            alert("이미지 파일만 선택하세요.");
+            openDialog("회원 정보 수정", "이미지만 선택해주세요", "warning");
             return;
         }
         setProfileImage(file);
@@ -70,14 +74,14 @@ export default function Mypage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await editService.editUserInfo({
+            await run(() => editService.editUserInfo({
                 name,
                 email,
                 phoneNumber,
                 profile: profileImage,
-            });
+            }));
 
-            alert("프로필이 수정되었습니다.");
+            openDialog("회원 정보 수정", "정보 수정을 완료하였습니다.", "success");
             setProfileImage(null);
             setPreviewUrl(null);
 
@@ -85,7 +89,7 @@ export default function Mypage() {
             await refreshUser();
         } catch (err) {
             console.error(err);
-            alert("수정에 실패했습니다.");
+            openDialog("회원 정보 수정", "정보 수정에 실패하였습니다.");
         }
     };
 

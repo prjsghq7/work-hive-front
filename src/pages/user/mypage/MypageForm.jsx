@@ -1,6 +1,7 @@
 import "./MypageForm.min.css";
 import {useEffect, useState} from "react";
 import {subTableListService} from "../../../services/user/userService.js";
+import {useApi} from "../../../hooks/useApi.js";
 
 export default function MypageForm({
                                        fileRef,
@@ -21,31 +22,33 @@ export default function MypageForm({
                                        birth,
                                        remainingDayOffs,
                                    }) {
+    const { run } = useApi();
     const [roleList, setRoleList] = useState([]);
     const [teamList, setTeamList] = useState([]);
 
-    // ✅ 이름 편집 토글
     const [isEditingName, setIsEditingName] = useState(false);
     const [isEditingEmail, setIsEditingEmail] = useState(false);
     const [isEditingPhone, setIsEditingPhone] = useState(false);
 
+
+
     useEffect(() => {
-        const load = async () => {
+        (async () => {
             try {
-                const [teamRes, roleRes] = await Promise.all([
-                    subTableListService.getTeamList(),
-                    subTableListService.getRoleList(),
+                const [teamBody, roleBody] = await Promise.all([
+                    run(() => subTableListService.getTeamList()), // ✅ 여기서 body(res.data)로 변환됨
+                    run(() => subTableListService.getRoleList()),
                 ]);
-                setTeamList(teamRes.data.data.codes ?? []);
-                setRoleList(roleRes.data.data.codes ?? []);
+
+                // teamBody / roleBody 는 이제 CommonResult(= res.data)
+                setTeamList(teamBody?.data?.codes ?? []);
+                setRoleList(roleBody?.data?.codes ?? []);
             } catch (e) {
-                console.error(e?.message);
                 setTeamList([]);
                 setRoleList([]);
             }
-        };
-        load();
-    }, []);
+        })();
+    }, [run]);
 
     const imgSrc = previewUrl || serverImgUrl;
 
