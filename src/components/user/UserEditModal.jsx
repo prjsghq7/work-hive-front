@@ -1,17 +1,23 @@
-import { subTableListService, editService } from "../../services/user/userService.js";
+import {subTableListService, editService} from "../../services/user/userService.js";
 
-import { useDialog } from "../../contexts/modal/DialogContext.jsx";
+import {useDialog} from "../../contexts/modal/DialogContext.jsx";
 
-import {useContext, useEffect, useState} from "react";
+import {useRef, useEffect, useState} from "react";
+import {useApi} from "../../hooks/useApi";
 
-export default function UserEditModal({ targetIndex, onClose }) {
-    const { openDialog } = useDialog();
-
+export default function UserEditModal({targetIndex, onClose}) {
+    const {openDialog, openDialogEx} = useDialog();
+    const {run} = useApi();
     const [teamList, setTeamList] = useState([]);
     const [stateList, setStateList] = useState([]);
     const [roleList, setRoleList] = useState([]);
 
     const [form, setForm] = useState(null);
+
+    const empIdRef = useRef(null);
+    const emailRef = useRef(null);
+    const phoneNumberRef = useRef(null);
+
 
     useEffect(() => {
         if (!targetIndex) return;
@@ -62,7 +68,7 @@ export default function UserEditModal({ targetIndex, onClose }) {
     if (!form) return null;
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setForm(prev => ({
             ...prev,
             [name]: value
@@ -71,12 +77,50 @@ export default function UserEditModal({ targetIndex, onClose }) {
 
     const handleSave = async () => {
         try {
-            const res = await editService.edit(form);
+            const res = await run(() => editService.edit(form));
+            console.log("save res : " + res.data.message);
             openDialog("회원 정보 수정", "회원 정보 수정에 완료 하였습니다.");
-
             onClose(); // 모달 닫기
-        } catch (e) {
-            openDialog("회원 정보 수정", "알 수 없는 오류가 발생하였습니다.", "warning");
+        } catch (err) {
+            if (err.response?.data) {
+                const {message, code} = err.response.data;
+
+
+
+                let targetRef = null;
+                switch (code) {
+                    case "DUPLICATE_EMP_ID":
+                    case "INVALID_EMP_ID_FORMAT":
+                        targetRef = empIdRef.current;
+                        break;
+                    case "DUPLICATE_EMAIL":
+                    case "INVALID_EMAIL_FORMAT":
+                        targetRef = emailRef.current;
+                        break;
+                    case "DUPLICATE_PHONE":
+                    case "INVALID_PHONE_NUMBER_FORMAT":
+                        targetRef = phoneNumberRef.current;
+                        break;
+                }
+
+                if (targetRef !== null) {
+                    openDialogEx("회원 정보 수정", message, "warning", {
+                        buttons: [
+                            {
+                                text: "확인",
+                                color: "blue",
+                                onClick: () => {
+                                    targetRef.focus();
+                                }
+                            }
+                        ]
+                    });
+                } else {
+                    openDialog("회원 정보 수정", message, "warning");
+                }
+            } else {
+                openDialog("회원 정보 수정", "알수 없는 오류가 발생 하였습니다.", "warning");
+            }
         }
     };
 
@@ -93,7 +137,7 @@ export default function UserEditModal({ targetIndex, onClose }) {
 
                 <div className="modal-body">
                     <form>
-                        <input type="hidden" name="index" value={form.index} />
+                        <input type="hidden" name="index" value={form.index}/>
                         <div>
                             <label>사번</label>
                             <input
@@ -101,6 +145,7 @@ export default function UserEditModal({ targetIndex, onClose }) {
                                 name="empId"
                                 value={form.empId}
                                 onChange={handleChange}
+                                ref={empIdRef}
                             />
                         </div>
 
@@ -168,6 +213,7 @@ export default function UserEditModal({ targetIndex, onClose }) {
                                 name="email"
                                 value={form.email}
                                 onChange={handleChange}
+                                ref={emailRef}
                             />
                         </div>
 
@@ -178,6 +224,7 @@ export default function UserEditModal({ targetIndex, onClose }) {
                                 name="phoneNumber"
                                 value={form.phoneNumber}
                                 onChange={handleChange}
+                                ref={phoneNumberRef}
                             />
                         </div>
 
