@@ -1,3 +1,5 @@
+import "./UserEditModal.min.css";
+
 import {subTableListService, editService} from "../../services/user/userService.js";
 
 import {useDialog} from "../../contexts/modal/DialogContext.jsx";
@@ -136,35 +138,39 @@ export default function UserEditModal({targetIndex, onClose}) {
                 </div>
 
                 <div className="modal-body">
-                    <form>
-                        <input type="hidden" name="index" value={form.index}/>
-                        <div>
-                            <label>사번</label>
+                    <form className="edit-form">
+                        <input type="hidden" name="index" value={form.index} />
+
+                        <div className="item">
+                            <label className="label">사번</label>
                             <input
                                 type="text"
                                 name="empId"
                                 value={form.empId}
                                 onChange={handleChange}
                                 ref={empIdRef}
+                                className="control"
                             />
                         </div>
 
-                        <div>
-                            <label>이름</label>
+                        <div className="item">
+                            <label className="label">이름</label>
                             <input
                                 type="text"
                                 name="name"
                                 value={form.name}
                                 onChange={handleChange}
+                                className="control"
                             />
                         </div>
 
-                        <div>
-                            <label>팀 코드</label>
+                        <div className="item">
+                            <label className="label">팀</label>
                             <select
                                 name="teamCode"
                                 value={form.teamCode}
                                 onChange={handleChange}
+                                className="control"
                             >
                                 <option value="">선택</option>
                                 {teamList.map(team => (
@@ -175,12 +181,13 @@ export default function UserEditModal({targetIndex, onClose}) {
                             </select>
                         </div>
 
-                        <div>
-                            <label>권한 코드</label>
+                        <div className="item">
+                            <label className="label">권한</label>
                             <select
                                 name="roleCode"
                                 value={form.roleCode}
                                 onChange={handleChange}
+                                className="control"
                             >
                                 <option value="">선택</option>
                                 {roleList.map(role => (
@@ -191,12 +198,13 @@ export default function UserEditModal({targetIndex, onClose}) {
                             </select>
                         </div>
 
-                        <div>
-                            <label>사용자 상태</label>
+                        <div className="item">
+                            <label className="label">사용자 상태</label>
                             <select
                                 name="userState"
                                 value={form.userState}
                                 onChange={handleChange}
+                                className="control"
                             >
                                 {stateList.map(state => (
                                     <option key={state.code} value={state.code}>
@@ -206,35 +214,38 @@ export default function UserEditModal({targetIndex, onClose}) {
                             </select>
                         </div>
 
-                        <div>
-                            <label>이메일</label>
+                        <div className="item">
+                            <label className="label">이메일</label>
                             <input
                                 type="email"
                                 name="email"
                                 value={form.email}
                                 onChange={handleChange}
                                 ref={emailRef}
+                                className="control"
                             />
                         </div>
 
-                        <div>
-                            <label>전화번호</label>
+                        <div className="item">
+                            <label className="label">전화번호</label>
                             <input
                                 type="text"
                                 name="phoneNumber"
                                 value={form.phoneNumber}
                                 onChange={handleChange}
                                 ref={phoneNumberRef}
+                                className="control"
                             />
                         </div>
 
-                        <div>
-                            <label>총 연차</label>
+                        <div className="item">
+                            <label className="label">총 연차</label>
                             <input
                                 type="number"
                                 name="totalDayOffs"
                                 value={form.totalDayOffs}
                                 onChange={handleChange}
+                                className="control"
                             />
                         </div>
                     </form>
