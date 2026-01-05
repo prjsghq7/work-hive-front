@@ -17,7 +17,10 @@ export function DialogProvider({ children }) {
         open: false,
         title: "",
         message: "",
-        iconKey: null
+        iconKey: null,
+
+        buttons: null, // null이면 기본 확인 버튼 1개
+        onClose: null,
     });
 
     const openDialog = (title, message, iconKey = null) => {
@@ -26,6 +29,9 @@ export function DialogProvider({ children }) {
             title,
             message,
             iconKey,
+
+            buttons: null,
+            onClose: null,
         });
     };
 
@@ -33,8 +39,50 @@ export function DialogProvider({ children }) {
         setDialog((prev) => ({ ...prev, open: false }));
     };
 
+    const openDialogEx = (title, message, iconKey = null, options = {}) => {
+        const { buttons = null } = options;
+
+        setDialog({
+            open: true,
+            title,
+            message,
+            iconKey,
+            buttons
+        });
+    };
+
+    const renderButtons = () => {
+        // 기존 dialog: 확인 버튼 1개
+        if (!dialog.buttons || dialog.buttons.length === 0) {
+            return (
+                <button
+                    type="button"
+                    className="-button --blue"
+                    onClick={closeDialog}
+                >
+                    확인
+                </button>
+            );
+        }
+
+        // 커스텀 버튼: 무조건 닫고 callback 실행
+        return dialog.buttons.map((btn, idx) => (
+            <button
+                key={idx}
+                type="button"
+                className={`-button --${btn.color ?? "blue"}`}
+                onClick={() => {
+                    closeDialog();
+                    btn.onClick?.();
+                }}
+            >
+                {btn.text}
+            </button>
+        ));
+    };
+
     return (
-        <DialogContext.Provider value={{ openDialog }}>
+        <DialogContext.Provider value={{ openDialog, openDialogEx}}>
             {children}
 
             {dialog.open && (
@@ -60,13 +108,7 @@ export function DialogProvider({ children }) {
                         </div>
 
                         <div className="modal-actions">
-                            <button
-                                type="button"
-                                className="-button --blue"
-                                onClick={closeDialog}
-                            >
-                                확인
-                            </button>
+                            {renderButtons()}
                         </div>
                     </div>
                 </div>
