@@ -8,33 +8,42 @@ export default function Sidebar() {
 
     const menu = [
         {
-            type: "single",
-            label: "Home",
-            path: "/"
+            type: "group",
+            id: "user",
+            title: "회원",
+            children: [
+                { label: "프로필", path: "/user/edit" },
+                { label: "검색", path: "/user/search" }
+            ]
         },
         {
-          type:"single",
-          label:"회원가입",
-          path:"/user/register"
+            type: "single",
+            label: "채팅",
+            path: "/chat"
+        },
+        {
+            type: "single",
+            label: "근태",
+            path: "/attendance"
         },
         {
             type: "group",
-            id: "user",
-            title: "회원관리",
+            id: "schedule",
+            title: "일정",
             children: [
-                { label: "회원 승인", path: "/user/approve" },
-                { label: "회원 정보 수정", path: "/user/edit" },
-                { label: "회원 검색", path: "/user/search" }
+                { label: "메인", path: "/schedule/main" },
+                { label: "신청", path: "/schedule/request" },
+                { label: "이력", path: "/schedule/list" }
             ]
         },
         {
             type: "group",
             id: "leave",
-            title: "연차관리",
+            title: "연차",
             children: [
-                { label: "연차 메인", path: "/leave/main" },
-                { label: "연차 신청", path: "/leave/request" },
-                { label: "연차 이력", path: "/leave/list" }
+                { label: "메인", path: "/leave/main" },
+                { label: "신청", path: "/leave/request" },
+                { label: "이력", path: "/leave/list" }
             ]
         },
         {
@@ -70,7 +79,7 @@ export default function Sidebar() {
 
     return (
         <aside className="sidebar">
-            <h2 className="sidebar-logo">Work Hive</h2>
+            <a href="/home" className="sidebar-logo">Work Hive</a>
 
             <nav className="sidebar-nav">
                 {menu.map((item) => {

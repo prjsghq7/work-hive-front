@@ -17,9 +17,6 @@
   /* ✅ 에러가 있어도 레이아웃 안 밀리도록 항상 공간 확보 */
   padding-bottom: 18px;
   /* ✅ input 밑줄/애니메이션이 error 때문에 아래로 밀리지 않게 고정 높이 */
-  /* ✅ “그어지는” 포커스 라인: 항상 input 밑에 */
-  /* ✅ 에러 텍스트: 기본은 안 보이고, show 붙으면 나타남 */
-  /* ✅ 에러가 있을 때 input도 살짝 강조하고 싶으면 */
 }
 .register-form .input-wrap input {
   width: 100%;
@@ -34,7 +31,6 @@
   font-size: 14px;
   color: #1b262c;
   transition: background 0.2s ease, border-color 0.2s ease;
-  /* date input 기본 아이콘 색감 어색하면 약간 정리 */
 }
 .register-form .input-wrap input::placeholder {
   color: rgba(27, 38, 44, 0.45);
@@ -43,8 +39,14 @@
 .register-form .input-wrap input:focus {
   background: rgba(37, 99, 235, 0.06);
 }
+.register-form .input-wrap input {
+  /* date input 기본 아이콘 색감 어색하면 약간 정리 */
+}
 .register-form .input-wrap input[type=date] {
   color-scheme: light;
+}
+.register-form .input-wrap {
+  /* ✅ “그어지는” 포커스 라인: 항상 input 밑에 */
 }
 .register-form .input-wrap::after {
   content: "";
@@ -64,6 +66,9 @@
 .register-form .input-wrap:focus-within::after {
   transform: scaleX(1);
 }
+.register-form .input-wrap {
+  /* ✅ 에러 텍스트: 기본은 안 보이고, show 붙으면 나타남 */
+}
 .register-form .input-wrap .error {
   position: absolute;
   left: 2px;
@@ -79,6 +84,9 @@
 .register-form .input-wrap .error.show {
   opacity: 1;
   transform: translateY(0);
+}
+.register-form .input-wrap {
+  /* ✅ 에러가 있을 때 input도 살짝 강조하고 싶으면 */
 }
 .register-form .input-wrap:has(.error.show) input {
   background: rgba(37, 99, 235, 0.06);

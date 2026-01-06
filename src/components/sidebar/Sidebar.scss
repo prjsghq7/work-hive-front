@@ -15,7 +15,7 @@
   justify-content: flex-start;
 
   .sidebar-logo {
-    font-size: 1.375rem;
+    font-size: 1.625rem;
     font-weight: 700;
     margin-bottom: 1.75rem;
   }
@@ -45,7 +45,8 @@
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 1.125rem;
+  font-weight: 600;
   border-radius: 6px;
 }
 
@@ -64,14 +65,14 @@
 /* 서브 메뉴 영역 */
 .sidebar-submenu {
   margin-top: 2px;
-  padding-left: 12px;
+  padding-left: 1rem;
   display: flex;
   flex-direction: column;
 }
 
 /* 서브 메뉴 항목 */
 .sidebar-sub-item {
-  font-size: 13px;
+  font-size: 1rem;
   padding: 6px 10px;
   border-radius: 6px;
   text-decoration: none;
@@ -99,7 +100,7 @@
     background: rgba(148, 163, 184, 0.12);
     color: inherit;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 1.125rem;
     border-radius: 6px;
 
     &:hover {

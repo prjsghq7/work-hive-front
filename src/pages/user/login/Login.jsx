@@ -34,7 +34,7 @@ function Login() {
             if (res?.success) {
                 // res.data = { emp_id, accessToken } 형태라고 가정
                 await getMyInfo(res.data);
-                navigate("/", { replace: true });
+                navigate("/home", { replace: true });
                 return;
             }
 

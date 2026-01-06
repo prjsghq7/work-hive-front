@@ -38,9 +38,12 @@ function App() {
             <Suspense fallback={<div className="loading">로딩중...</div>}>
                 <Routes>
 
+                    <Route path="/" element={<Login/>}/>
+                    <Route path="/user/register" element={<Register/>}/>
+
                     {/* 사이드 있는 화면 */}
                     <Route path="/" element={<MainLayout/>}>
-                        <Route index element={<Home/>}/>
+                        <Route path={"home/"} element={<Home/>}/>
 
                         <Route path="user/search" element={<UserSearch/>}/>
 
@@ -63,9 +66,6 @@ function App() {
                             }
                         />
                     </Route>
-
-                    <Route path="/user/login" element={<Login/>}/>
-                    <Route path="/user/register" element={<Register/>}/>
                 </Routes>
             </Suspense>
         </DialogProvider>
