@@ -48,6 +48,14 @@
 .-button.--red:hover:not(:disabled) {
   background-color: #cf0541;
 }
+.-button.--green {
+  background-color: #00B500;
+  border-color: #00B500;
+  color: #ffffff;
+}
+.-button.--green:hover:not(:disabled) {
+  background-color: #305017;
+}
 .-button:disabled {
   opacity: 0.65;
   cursor: default;
