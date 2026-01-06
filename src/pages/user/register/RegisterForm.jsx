@@ -13,7 +13,7 @@ export default function RegisterForm({form, errors, loading, onChange, onSubmit}
     ];
 
     return (
-        <form onSubmit={onSubmit} noValidate>
+        <form className="register-form" onSubmit={onSubmit} noValidate>
             {FIELDS.map((field) => (
                 <div key={field.name} className="input-wrap">
                     <input name={field.name}
