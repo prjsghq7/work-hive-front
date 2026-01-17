@@ -2,4 +2,12 @@
   text-align: center;
 }
 
+.leave-main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
 /*# sourceMappingURL=LeaveMain.css.map */

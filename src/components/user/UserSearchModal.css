@@ -1,0 +1,143 @@
+@charset "UTF-8";
+/* ================= 사용자 검색 모달 ================= */
+.user-search-modal {
+  max-width: 37.5rem;
+  width: 90%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.user-search-modal > .modal-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  overflow-y: auto;
+}
+.user-search-modal > .modal-body > .user-search-search-box {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+.user-search-modal > .modal-body > .user-search-search-box > .user-search-search-input {
+  flex: 1;
+  height: 2.5rem;
+  border: 1px solid #d1d5db;
+  padding: 0 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  outline: none;
+  transition: all 0.2s;
+}
+.user-search-modal > .modal-body > .user-search-search-box > .user-search-search-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+.user-search-modal > .modal-body > .user-search-search-box > .user-search-search-input::placeholder {
+  color: #9ca3af;
+}
+.user-search-modal > .modal-body > .user-search-search-box > .user-search-search-button {
+  min-width: 6.25rem;
+  height: 2.5rem;
+  background: linear-gradient(to bottom, #2563eb, #1d4ed8);
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+.user-search-modal > .modal-body > .user-search-search-box > .user-search-search-button:hover:not(:disabled) {
+  background: linear-gradient(to bottom, #1d4ed8, #1e40af);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+.user-search-modal > .modal-body > .user-search-search-box > .user-search-search-button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.user-search-modal > .modal-body > .user-search-search-box > .user-search-search-button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+}
+.user-search-modal > .modal-body > .user-search-search-results {
+  min-height: 12.5rem;
+  max-height: 28.125rem;
+  overflow-y: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  background: #f9fafb;
+  padding: 0.5rem 0;
+}
+.user-search-modal > .modal-body > .user-search-search-results::-webkit-scrollbar {
+  width: 0.5rem;
+}
+.user-search-modal > .modal-body > .user-search-search-results::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 0.5rem;
+}
+.user-search-modal > .modal-body > .user-search-search-results::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 0.5rem;
+}
+.user-search-modal > .modal-body > .user-search-search-results::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+.user-search-modal > .modal-body > .user-search-search-results > .user-search-no-results {
+  padding: 3rem 2rem;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 12.5rem;
+}
+.user-search-modal > .modal-body > .user-search-search-results > .user-search-results-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.user-search-modal > .modal-body > .user-search-search-results > .user-search-results-list > .user-search-result-item {
+  padding: 0.75rem 0;
+  cursor: pointer;
+}
+.user-search-modal > .modal-body > .user-search-search-results > .user-search-results-list > .user-search-result-item:hover {
+  background: #f9fafb;
+}
+.user-search-modal > .modal-body > .user-search-search-results > .user-search-results-list > .user-search-result-item > .user-search-result-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+}
+.user-search-modal > .modal-body > .user-search-search-results > .user-search-results-list > .user-search-result-item > .user-search-result-content > .user-search-emp-id {
+  font-size: 0.875rem;
+}
+.user-search-modal > .modal-body > .user-search-search-results > .user-search-results-list > .user-search-result-item > .user-search-result-content > .user-search-name {
+  font-size: 1rem;
+}
+.user-search-modal > .modal-body > .user-search-search-results > .user-search-results-list > .user-search-result-item > .user-search-result-content > .user-search-email {
+  font-size: 0.8125rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.user-search-modal > .modal-body > .user-search-search-results > .user-search-results-list > .user-search-result-item > .user-search-result-content > .user-search-team {
+  font-size: 0.8125rem;
+}
+.user-search-modal > .modal-body > .user-search-search-results > .user-search-results-list > .user-search-result-item > .user-search-result-content > .user-search-role {
+  font-size: 0.8125rem;
+}
+
+/*# sourceMappingURL=UserSearchModal.css.map */

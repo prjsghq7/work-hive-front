@@ -5,11 +5,19 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import "./Calendar.css"; // 추후 scss로 변경 예정
 
-export default function Calendar({ events }) {
+export default function Calendar({ events, onDateClick }) {
     const calendarRef = useRef(null);
 
     // 한글 월 이름 매핑
     const monthNames = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+
+    const handleDateClick = (info) => {
+        if (onDateClick) {
+            // 날짜를 YYYY-MM-DD 형식으로 변환
+            const dateStr = info.dateStr;
+            onDateClick(dateStr);
+        }
+    };
 
     return (
         <FullCalendar
@@ -28,6 +36,7 @@ export default function Calendar({ events }) {
                 return `${dateInfo.date.year}년 ${month}`;
             }}
             dayMaxEvents={3}
+            dateClick={handleDateClick}
         />
     );
 }

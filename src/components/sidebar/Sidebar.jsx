@@ -42,7 +42,6 @@ export default function Sidebar() {
             title: "연차",
             children: [
                 { label: "메인", path: "/leave/main" },
-                { label: "신청", path: "/leave/request" },
                 { label: "이력", path: "/leave/list" }
             ]
         },

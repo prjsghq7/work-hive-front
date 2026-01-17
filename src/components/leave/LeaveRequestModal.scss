@@ -1,0 +1,9 @@
+// LeaveRequestModal 전용 스타일
+// 연차 보고서 관련 스타일은 LeaveForm.scss에서 관리
+
+.leave-request-modal {
+  max-width: 50rem;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}

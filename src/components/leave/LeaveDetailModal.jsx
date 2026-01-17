@@ -2,12 +2,15 @@ import "./LeaveDetailModal.min.css";
 
 import {leaveService} from "../../services/leave/leaveService.js";
 import {useApi} from "../../hooks/useApi.js";
+import { useDialog } from "../../contexts/modal/DialogContext.jsx";
+import LeaveForm from "./LeaveForm.jsx";
 
 import {useEffect, useState} from "react";
 
-export default function LeaveDetailModal({targetIndex, onClose}) {
+export default function LeaveDetailModal({targetIndex, onClose, selectedTab = "all"}) {
     const [leave, setLeave] = useState(null);
     const {run} = useApi();
+    const { openDialog } = useDialog();
 
     useEffect(() => {
         if (!targetIndex) return;
@@ -21,8 +24,12 @@ export default function LeaveDetailModal({targetIndex, onClose}) {
                     index: data.index,
                     requesterId: data.requesterId ?? "",
                     requesterName: data.requesterName ?? "",
+                    requesterTeamName: data.requesterTeamName ?? "",
                     approverId: data.approverId ?? "",
                     approverName: data.approverName ?? "",
+                    approverTeamName: data.approverTeamName ?? "",
+                    approverRoleName: data.approverRoleName ?? "",
+                    approverProfileImg: data.approverProfileImg ?? "",
                     typeText: data.typeText ?? "",
                     stateText: data.stateText ?? "",
                     reason: data.reason ?? "",
@@ -41,46 +48,29 @@ export default function LeaveDetailModal({targetIndex, onClose}) {
 
     if (!targetIndex) return null;
 
-    // 날짜 포맷팅 함수
-    const formatDate = (dateString) => {
-        if (!dateString) return '-';
-        try {
-            return new Date(dateString).toLocaleDateString("ko-KR");
-        } catch {
-            return dateString;
-        }
-    };
-
-    // 기간 계산 함수
-    const calculatePeriod = (startDate, endDate) => {
-        if (!startDate || !endDate) return '-';
-        try {
-            const start = new Date(startDate);
-            const end = new Date(endDate);
-            const diffTime = Math.abs(end - start);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-            return `${diffDays}일`;
-        } catch {
-            return '-';
-        }
-    };
-
     // 승인/반려 처리
     const handleAction = async (action) => {
         if (!leave) return;
         try {
             await run(() => leaveService.patchAction(leave.index, action));
+            const actionText = action === "approve" ? "승인" : "반려";
+            openDialog("연차 처리", `${actionText} 처리가 완료되었습니다.`, "success");
             onClose();
             window.location.reload();
         } catch (e) {
             const actionText = action === "approve" ? "승인" : "반려";
-            alert(`${actionText} 처리 중 오류가 발생했습니다.`);
+            openDialog("연차 처리 실패", `${actionText} 처리 중 오류가 발생했습니다.`, "warning");
         }
     };
 
+    // 승인/반려 상태 확인
+    const isApproved = leave?.stateText === "승인";
+    const isRejected = leave?.stateText === "반려";
+    const approvalStatus = isApproved ? "approved" : isRejected ? "rejected" : "";
+
     return (
         <div className="modal-overlay" onClick={onClose}>
-            <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal leave-detail-modal" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
                     <h3 className="modal-title">연차 상세</h3>
                     <span className="modal-stretch"></span>
@@ -97,80 +87,44 @@ export default function LeaveDetailModal({targetIndex, onClose}) {
                     )}
 
                     {leave && (
-                        <>
-                            <div className="grid">
-                                <div className="item">
-                                    <div className="label">요청자</div>
-                                    <div className="value">{leave.requesterName}</div>
-                                </div>
-
-                                <div className="item">
-                                    <div className="label">승인자</div>
-                                    <div className="value">{leave.approverName || '-'}</div>
-                                </div>
-
-                                <div className="item">
-                                    <div className="label">연차 유형</div>
-                                    <div className="value">{leave.typeText}</div>
-                                </div>
-
-                                <div className="item">
-                                    <div className="label">상태</div>
-                                    <div className="value">{leave.stateText}</div>
-                                </div>
-
-                                <div className="item">
-                                    <div className="label">요청일</div>
-                                    <div className="value">{formatDate(leave.requestDate)}</div>
-                                </div>
-
-                                <div className="item">
-                                    <div className="label">승인일</div>
-                                    <div className="value">{formatDate(leave.approveDate)}</div>
-                                </div>
-
-                                <div className="item">
-                                    <div className="label">시작일</div>
-                                    <div className="value">{formatDate(leave.startDate)}</div>
-                                </div>
-
-                                <div className="item">
-                                    <div className="label">종료일</div>
-                                    <div className="value">{formatDate(leave.endDate)}</div>
-                                </div>
-
-                                <div className="item full-width">
-                                    <div className="label">기간</div>
-                                    <div className="value">{calculatePeriod(leave.startDate, leave.endDate)}</div>
-                                </div>
-
-                                {leave.reason && (
-                                    <div className="item full-width">
-                                        <div className="label">사유</div>
-                                        <div className="value">{leave.reason}</div>
-                                    </div>
-                                )}
-                            </div>
-                        </>
+                        <LeaveForm
+                            mode="view"
+                            data={{
+                                requesterName: leave.requesterName || "",
+                                departmentName: leave.requesterTeamName || "",
+                                typeText: leave.typeText || "",
+                                startDate: leave.startDate || "",
+                                endDate: leave.endDate || "",
+                                reason: leave.reason || "",
+                                approverName: leave.approverName || "",
+                                approverTeamName: leave.approverTeamName || "",
+                                approverRoleName: leave.approverRoleName || "",
+                                approverProfileImg: leave.approverProfileImg || "",
+                            }}
+                            approvalStatus={approvalStatus}
+                            isModalMode={true}
+                        />
                     )}
                 </div>
 
-                <div className="modal-actions">
-                    <button
-                        type="button"
-                        className="-button --green"
-                        onClick={() => handleAction("approve")}
-                    >
-                        승인
-                    </button>
-                    <button
-                        type="button"
-                        className="-button --red"
-                        onClick={() => handleAction("reject")}
-                    >
-                        반려
-                    </button>
-                </div>
+                {selectedTab === "received" && (
+                    <div className="modal-actions">
+                        <button
+                            type="button"
+                            className="-button --green"
+                            onClick={() => handleAction("approve")}
+                        >
+                            승인
+                        </button>
+                        <button
+                            type="button"
+                            className="-button --red"
+                            onClick={() => handleAction("reject")}
+                        >
+                            반려
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );

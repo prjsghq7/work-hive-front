@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import "../../../assets/Common.min.css";
+import "./LeaveList.min.css";
 import {leaveService} from "../../../services/leave/leaveService.js";
 import {useApi} from "../../../hooks/useApi.js";
 import LeaveDetailModal from "../../../components/leave/LeaveDetailModal.jsx";
@@ -30,7 +31,12 @@ function LeaveList() {
         {key: "received", label: "요청 내역"},
     ];
 
-    const leaves = data?.data?.leaves || [];
+    const allLeaves = data?.data?.leaves || [];
+    
+    // 전체 탭에서는 승인된 것만 필터링
+    const leaves = selectedTab === "all" 
+        ? allLeaves.filter(leave => leave.stateText === "승인")
+        : allLeaves;
 
     // 날짜 표기 가공 유틸
     const formatDate = (dateString) => {
@@ -45,24 +51,12 @@ function LeaveList() {
 
     return (
         <div className="board-container">
-            <div style={{
-                display: 'flex',
-                borderBottom: '2px solid #eee',
-                marginBottom: '1.5rem'
-            }}>
+            <div className="leave-list-tabs">
                 {TABS.map(tab => (
                     <button
                         key={tab.key}
                         onClick={() => setSelectedTab(tab.key)}
-                        style={{
-                            padding: '1rem 2rem',
-                            cursor: 'pointer',
-                            border: 'none',
-                            borderBottom: selectedTab === tab.key ? '3px solid #1177fe' : 'none',
-                            background: 'none',
-                            fontWeight: selectedTab === tab.key ? 'bold' : 'normal',
-                            color: selectedTab === tab.key ? '#1177fe' : '#555'
-                        }}
+                        className={`leave-list-tab ${selectedTab === tab.key ? 'active' : ''}`}
                     >
                         {tab.label}
                     </button>
@@ -77,6 +71,7 @@ function LeaveList() {
                     <thead>
                     <tr>
                         <th className="first">번호</th>
+                        <th>상태</th>
                         <th>요청자</th>
                         <th>승인자</th>
                         <th>연차 유형</th>
@@ -90,18 +85,18 @@ function LeaveList() {
                     <tbody>
                     {loading ? (
                         <tr>
-                            <td colSpan={9}>로딩 중...</td>
+                            <td colSpan={10}>로딩 중...</td>
                         </tr>
                     ) : error ? (
                         <tr>
-                            <td colSpan={9}>데이터를 불러오는 중 오류가 발생했습니다.</td>
+                            <td colSpan={10}>데이터를 불러오는 중 오류가 발생했습니다.</td>
                         </tr>
                     ) : !leaves || leaves.length === 0 ? (
                         <tr>
-                            <td colSpan={9}>연차 이력이 없습니다.</td>
+                            <td colSpan={10}>연차 이력이 없습니다.</td>
                         </tr>
                     ) : (
-                        leaves.map((leave) => {
+                        leaves.map((leave, idx) => {
                             const period = (leave.startDate && leave.endDate)
                                 ? (() => {
                                     const start = new Date(leave.startDate);
@@ -111,13 +106,30 @@ function LeaveList() {
                                     return `${diffDays}일`;
                                 })()
                                 : '-';
+                            
+                            // 상태에 따른 클래스명
+                            const getStatusClass = (stateText) => {
+                                if (stateText === "승인") {
+                                    return "approved";
+                                } else if (stateText === "반려") {
+                                    return "rejected";
+                                } else {
+                                    return "pending";
+                                }
+                            };
+
                             return (
                                 <tr
                                     key={leave.index}
                                     onClick={() => openModal(leave.index)}
-                                    style={{cursor: "pointer"}}
+                                    className="leave-list-table-row"
                                 >
-                                    <td>{leave.index}</td>
+                                    <td>{idx + 1}</td>
+                                    <td>
+                                        <span className={`leave-status-badge ${getStatusClass(leave.stateText)}`}>
+                                            {leave.stateText || '대기'}
+                                        </span>
+                                    </td>
                                     <td>{leave.requesterName || '-'}</td>
                                     <td>{leave.approverName || '-'}</td>
                                     <td>{leave.typeText || '-'}</td>
@@ -135,7 +147,11 @@ function LeaveList() {
             </div>
 
             {isModalOpen && (
-                <LeaveDetailModal targetIndex={targetIndex} onClose={closeModal}/>
+                <LeaveDetailModal 
+                    targetIndex={targetIndex} 
+                    onClose={closeModal}
+                    selectedTab={selectedTab}
+                />
             )}
         </div>
     );

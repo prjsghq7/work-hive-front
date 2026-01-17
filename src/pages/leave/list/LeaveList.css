@@ -1,3 +1,54 @@
+.leave-list-tabs {
+  display: flex;
+  border-bottom: 0.125rem solid #eee;
+  margin-bottom: 1.5rem;
+}
 
+.leave-list-tab {
+  padding: 1rem 2rem;
+  cursor: pointer;
+  border: none;
+  border-bottom: none;
+  background: none;
+  font-weight: normal;
+  color: #555;
+  transition: all 0.2s;
+}
+.leave-list-tab:hover {
+  color: #1177fe;
+}
+.leave-list-tab.active {
+  border-bottom: 0.1875rem solid #1177fe;
+  font-weight: bold;
+  color: #1177fe;
+}
+
+.leave-list-table-row {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.leave-list-table-row:hover {
+  background-color: #f9fafb;
+}
+
+.leave-status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  font-size: 0.8125rem;
+}
+.leave-status-badge.approved {
+  background-color: #dbeafe;
+  color: #2563eb;
+}
+.leave-status-badge.rejected {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+.leave-status-badge.pending {
+  background-color: #f3f4f6;
+  color: #6b7280;
+}
 
 /*# sourceMappingURL=LeaveList.css.map */

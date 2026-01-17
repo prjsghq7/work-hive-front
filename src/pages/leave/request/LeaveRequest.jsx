@@ -1,113 +1,121 @@
-import {useState} from "react";
-    import {useNavigate} from "react-router-dom";
-import {useApi} from "../../../hooks/useApi.js";
-import {leaveService} from "../../../services/leave/leaveService.js";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useApi } from "../../../hooks/useApi.js";
+import { leaveService } from "../../../services/leave/leaveService.js";
+import { useAuth } from "../../user/AuthContext.jsx";
+import LeaveForm from "../../../components/leave/LeaveForm.jsx";
+
+import "./LeaveRequest.min.css";
 
 function LeaveRequest() {
     const navigate = useNavigate();
-    const {run, loading, error} = useApi();
+    const { run, loading, error } = useApi();
+    const { user } = useAuth();
 
     const [approverId, setApproverId] = useState("");
-    const [type, setType] = useState(""); // 연차, 오전 반차, 오후 반차, 병가
-    const [reason, setReason] = useState("");
-    const [startDate, setStartDate] = useState("");
-    const [endDate, setEndDate] = useState("");
+    const [approverInfo, setApproverInfo] = useState(null); // 승인자 전체 정보
+    const [formData, setFormData] = useState({
+        type: "",
+        reason: "",
+        startDate: "",
+        endDate: "",
+    });
+    const [validationError, setValidationError] = useState("");
 
+    // 사용자 정보
+    const requesterName = user?.name || "사용자";
+    const departmentName = user?.teamName || "부서";
+
+    // 반차인지 확인
+    const isHalfDay = formData.type === "2" || formData.type === "3";
+
+    // 날짜 유효성 검사
+    useEffect(() => {
+        setValidationError("");
+        if (formData.startDate && formData.endDate && !isHalfDay) {
+            if (new Date(formData.startDate) > new Date(formData.endDate)) {
+                setValidationError("종료일은 시작일보다 이후여야 합니다.");
+            }
+        }
+    }, [formData.startDate, formData.endDate, isHalfDay]);
+
+    // 승인자 선택 함수
+    const handleSelectApprover = (user) => {
+        // empId가 있으면 empId를, 없으면 index를 사용 (empId는 숫자일 수 있으므로 String으로 변환)
+        setApproverId(String(user.empId || user.index));
+        setApproverInfo({
+            name: user.name || "",
+            teamName: user.teamName || "",
+            roleName: user.roleName || "",
+            profileImg: user.profileImg || user.imageUrl || "",
+        });
+    };
+
+    // 폼 데이터 변경 핸들러
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    // 폼 제출 핸들러
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // 유효성 검사
+        if (!approverId) {
+            alert("승인자를 선택해주세요.");
+            return;
+        }
+
+        if (validationError) {
+            alert(validationError);
+            return;
+        }
+
+        if (!isHalfDay && formData.startDate && formData.endDate && new Date(formData.startDate) > new Date(formData.endDate)) {
+            alert("종료일은 시작일보다 이후여야 합니다.");
+            return;
+        }
+
         const requestData = {
-            approverId: approverId,
-            type: type,
-            reason: reason,
-            startDate: startDate,
-            endDate: endDate
+            approverId,
+            type: formData.type,
+            reason: formData.reason,
+            startDate: formData.startDate,
+            endDate: isHalfDay ? formData.startDate : formData.endDate,
         };
 
-        console.log("전송할 데이터:", requestData);
-
         try {
-            await run(() =>
-                leaveService.request(requestData)
-            );
-
-            alert("연차 신청이 완료되었습니다!");
-            // 메인 화면으로 이동
+            await run(() => leaveService.request(requestData));
+            alert("연차 신청이 완료되었습니다.");
             navigate("/leave/main");
-        } catch (error) {
-            console.error(error);
-            alert("연차 신청 실패");
+        } catch (err) {
+            const errorMessage = err?.response?.data?.message || "연차 신청에 실패했습니다.";
+            alert(errorMessage);
         }
     };
 
     return (
-        <div>
-            <h2>연차 신청</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        승인자 ID:
-                        <input
-                            type="text"
-                            value={approverId}
-                            onChange={(e) => setApproverId(e.target.value)}
-                            required
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        연차 타입:
-                        <select
-                            value={type}
-                            onChange={(e) => setType(e.target.value)}
-                            required
-                        >
-                            <option value="">선택하세요</option>
-                            <option value="1">연차</option>
-                            <option value="2">오전 반차</option>
-                            <option value="3">오후 반차</option>
-                            <option value="4">병가</option>
-                        </select>
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        사유:
-                        <input
-                            type="text"
-                            value={reason}
-                            onChange={(e) => setReason(e.target.value)}
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        연차 시작일:
-                        <input
-                            type="date"
-                            value={startDate}
-                            onChange={(e) => setStartDate(e.target.value)}
-                            required
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        연차 종료일:
-                        <input
-                            type="date"
-                            value={endDate}
-                            onChange={(e) => setEndDate(e.target.value)}
-                            required
-                        />
-                    </label>
-                </div>
-                {error && <p style={{color: "red"}}>에러 발생: {error.message}</p>}
-                <button type="submit" disabled={loading}>
-                    {loading ? "요청 중..." : "요청하기"}
-                </button>
-            </form>
+        <div className="leave-paper-wrapper">
+            <LeaveForm
+                mode="edit"
+                data={{
+                    requesterName,
+                    departmentName,
+                    ...formData,
+                }}
+                approverInfo={approverInfo}
+                onApproverSelect={handleSelectApprover}
+                onChange={handleChange}
+                onSubmit={handleSubmit}
+                onCancel={() => navigate("/leave/main")}
+                loading={loading}
+                error={error}
+                validationError={validationError}
+            />
         </div>
     );
 }
