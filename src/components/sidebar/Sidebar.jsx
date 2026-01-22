@@ -23,6 +23,11 @@ export default function Sidebar() {
         },
         {
             type: "single",
+            label: "채팅 Test",
+            path: "/chat/test"
+        },
+        {
+            type: "single",
             label: "근태",
             path: "/attendance"
         },

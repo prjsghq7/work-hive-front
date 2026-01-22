@@ -21,8 +21,10 @@ const Login = lazy(() => import("./pages/user/login/Login.jsx"));
 const Register = lazy(() => import("./pages/user/register/Register.jsx"));
 const UserSearch = lazy(() => import("./pages/user/search/UserSearch.jsx"));
 
+const ChatStompTest = lazy(() => import("./pages/chat/ChatStompTest.jsx"));
+
 const LeaveMain = lazy(() => import("./pages/leave/main/LeaveMain.jsx"));
-// const LeaveRequest = lazy(() => import("./pages/leave/request/LeaveRequest.jsx")); // 모달로 대체됨
+const LeaveRequest = lazy(() => import("./pages/leave/request/LeaveRequest.jsx"));
 const LeaveList = lazy(() => import("./pages/leave/list/LeaveList.jsx"));
 
 const BoardAll = lazy(() => import("./pages/board/all/BoardAll.jsx"));
@@ -47,8 +49,10 @@ function App() {
 
                         <Route path="user/search" element={<UserSearch/>}/>
 
+                        <Route path="chat/test" element={<ChatStompTest/>}/>
+
                         <Route path="leave/main" element={<LeaveMain/>}></Route>
-                        {/* <Route path="leave/request" element={<LeaveRequest/>}></Route> */} {/* 모달로 대체됨 */}
+                        <Route path="leave/request" element={<LeaveRequest/>}></Route>
                         <Route path="leave/list" element={<LeaveList/>}></Route>
 
                         <Route path="board/all" element={<BoardAll/>}></Route>
