@@ -1,3 +1,80 @@
+.leave-summary-section {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  gap: 10rem;
+}
+
+.leave-summary-profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.leave-summary-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.leave-summary-avatar-placeholder {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.leave-summary-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #111827;
+}
+
+.leave-summary-stats {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  flex: 1;
+}
+
+.leave-summary-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.leave-summary-divider {
+  width: 1px;
+  height: 3rem;
+  background-color: #e5e7eb;
+  flex-shrink: 0;
+}
+
+.leave-summary-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.leave-summary-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+.leave-summary-value.highlight {
+  color: #1177fe;
+}
+
 .leave-list-tabs {
   display: flex;
   border-bottom: 0.125rem solid #eee;

@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* 전체 래퍼 */
 .calendar-wrapper {
   width: 900px;
@@ -23,6 +22,7 @@
 /* ----------------------------- */
 /* 🔥 FullCalendar 스타일 */
 /* ----------------------------- */
+
 /* 요일 헤더 */
 .fc-col-header-cell-cushion {
   font-size: 14px;
@@ -80,9 +80,8 @@
   cursor: pointer !important;
   transition: all 0.2s !important;
   margin-left: 0.5rem !important;
-}
-.fc-requestButton-button:hover {
-  background: #1d4ed8 !important;
-}
 
-/*# sourceMappingURL=Calendar.css.map */
+  &:hover {
+    background: #1d4ed8 !important;
+  }
+}

@@ -3,9 +3,9 @@ import React, { useRef } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import "./Calendar.css"; // 추후 scss로 변경 예정
+import "./Calendar.min.css";
 
-export default function Calendar({ events, onDateClick }) {
+export default function Calendar({ events, onDateClick, onRequestClick }) {
     const calendarRef = useRef(null);
 
     // 한글 월 이름 매핑
@@ -19,6 +19,16 @@ export default function Calendar({ events, onDateClick }) {
         }
     };
 
+    // 커스텀 버튼 설정
+    const customButtons = onRequestClick ? {
+        requestButton: {
+            text: '신청',
+            click: function() {
+                onRequestClick();
+            }
+        }
+    } : {};
+
     return (
         <FullCalendar
             ref={calendarRef}
@@ -26,10 +36,11 @@ export default function Calendar({ events, onDateClick }) {
             initialView="dayGridMonth"
             events={events}
             height="auto"
+            customButtons={customButtons}
             headerToolbar={{
                 left: "title",
                 center: "",
-                right: "today prev,next"
+                right: onRequestClick ? "today prev,next requestButton" : "today prev,next"
             }}
             titleFormat={(dateInfo) => {
                 const month = monthNames[dateInfo.date.month];

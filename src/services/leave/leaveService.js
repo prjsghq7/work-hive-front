@@ -9,6 +9,10 @@ export const leaveService = {
         return apiClient.get("/leave/list", { params: { tab } });
     },
 
+    getLeaveStats() {
+        return apiClient.get("/leave/stats");
+    },
+
     request(leaveData) {
         return apiClient.post("/leave/request", leaveData);
     },

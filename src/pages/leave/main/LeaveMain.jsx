@@ -102,17 +102,15 @@ function LeaveMain() {
                     labels={filterOptions}
                     className="calendar-filter-container"
                 />
-                <button 
-                    type="button" 
-                    className="-button --blue"
-                    onClick={handleOpenRequestModal}
-                >
-                    신청하기
-                </button>
             </div>
 
             {/* 캘린더 표시 */}
-            <Calendar filter={filter} events={events} onDateClick={handleDateClick} />
+            <Calendar 
+                filter={filter} 
+                events={events} 
+                onDateClick={handleDateClick}
+                onRequestClick={handleOpenRequestModal}
+            />
 
             {/* 일정 리스트 모달 */}
             {isListModalOpen && selectedDate && (
