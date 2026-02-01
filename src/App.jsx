@@ -25,6 +25,8 @@ const LeaveMain = lazy(() => import("./pages/leave/main/LeaveMain.jsx"));
 // const LeaveRequest = lazy(() => import("./pages/leave/request/LeaveRequest.jsx")); // 모달로 대체됨
 const LeaveList = lazy(() => import("./pages/leave/list/LeaveList.jsx"));
 
+const ScheduleMain = lazy(() => import("./pages/schedule/main/ScheduleMain.jsx"));
+
 const BoardAll = lazy(() => import("./pages/board/all/BoardAll.jsx"));
 const BoardNotice = lazy(() => import("./pages/board/notice/BoardNotice.jsx"));
 const BoardFamilyEvent = lazy(() => import("./pages/board/familyEvent/BoardFamilyEvent.jsx"));
@@ -50,6 +52,8 @@ function App() {
                         <Route path="leave/main" element={<LeaveMain/>}></Route>
                         {/* <Route path="leave/request" element={<LeaveRequest/>}></Route> */} {/* 모달로 대체됨 */}
                         <Route path="leave/list" element={<LeaveList/>}></Route>
+
+                        <Route path="schedule/main" element={<ScheduleMain/>}></Route>
 
                         <Route path="board/all" element={<BoardAll/>}></Route>
                         <Route path="board/notice" element={<BoardNotice/>}></Route>

@@ -1,0 +1,13 @@
+.schedule-main-container {
+  text-align: center;
+}
+
+.schedule-main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+/*# sourceMappingURL=ScheduleMain.css.map */

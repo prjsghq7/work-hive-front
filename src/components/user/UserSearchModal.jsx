@@ -114,9 +114,9 @@ function UserSearchModal({ isOpen, onClose, onSelect }) {
                                             <div className="user-search-result-content">
                                                 <span className="user-search-emp-id">{empId}</span>
                                                 <span className="user-search-name">{name}</span>
-                                                <span className="user-search-email">{email}</span>
                                                 <span className="user-search-team">{teamName}</span>
                                                 <span className="user-search-role">{roleName}</span>
+                                                <span className="user-search-email">{email}</span>
                                             </div>
                                         </li>
                                     );

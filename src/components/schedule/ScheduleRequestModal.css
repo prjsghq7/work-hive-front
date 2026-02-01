@@ -1,0 +1,196 @@
+@charset "UTF-8";
+.schedule-request-modal {
+  max-width: 44rem;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.schedule-request-modal .modal-body {
+  padding: 1.25rem 1.5rem;
+}
+
+.schedule-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.schedule-form-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  min-width: 0;
+}
+.schedule-form-col:last-child .schedule-form-participants {
+  flex: 1;
+  min-height: 0;
+  /* ul max-height: 열 전체 ~340px 되도록 (라벨·버튼·gap 제외 ≈ 272px ≈ 17rem) */
+}
+.schedule-form-col:last-child .schedule-form-participants .schedule-form-participant-list {
+  flex: 1;
+  min-height: 0;
+  max-height: 17rem;
+}
+
+.schedule-form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.schedule-form-row.schedule-form-row-dates .schedule-form-dates {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.schedule-form-row.schedule-form-row-dates .schedule-form-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.schedule-form-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #374151;
+  text-align: left;
+}
+
+.schedule-form-input,
+.schedule-form-textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background: #fff;
+  transition: border-color 0.2s ease;
+}
+.schedule-form-input::placeholder,
+.schedule-form-textarea::placeholder {
+  color: #9ca3af;
+}
+.schedule-form-input:focus,
+.schedule-form-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.schedule-form-textarea {
+  resize: none;
+  min-height: 10rem;
+}
+
+.schedule-form-date-sep {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.schedule-form-error {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: #dc2626;
+}
+
+/* 참여자 */
+.schedule-form-participants {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.schedule-form-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #374151;
+  cursor: pointer;
+  user-select: none;
+  min-width: 0;
+}
+.schedule-form-checkbox-label.inline {
+  margin: 0;
+}
+.schedule-form-checkbox-label .schedule-form-checkbox {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.schedule-form-add-participant {
+  align-self: flex-start;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  color: #2563eb;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.schedule-form-add-participant:hover {
+  background: #dbeafe;
+  border-color: #93c5fd;
+}
+
+.schedule-form-participant-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  max-height: 12rem;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.schedule-form-participant-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem 0.5rem 1.5rem;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 0.875rem;
+}
+.schedule-form-participant-item:last-child {
+  border-bottom: none;
+}
+
+.schedule-form-participant-name {
+  flex: 1;
+  min-width: 0;
+  color: #111827;
+}
+.schedule-form-participant-name .schedule-form-participant-team {
+  color: #6b7280;
+  font-size: 0.8125rem;
+}
+
+.schedule-form-participant-spacer {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.schedule-form-remove-participant {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  font-size: 1.125rem;
+  line-height: 1;
+  color: #6b7280;
+  background: transparent;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.schedule-form-remove-participant:hover {
+  color: #dc2626;
+  background: #fef2f2;
+}
+
+/*# sourceMappingURL=ScheduleRequestModal.css.map */
