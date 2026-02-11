@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { chatService } from "../../services/chat/chatService.js";
 import {
     connectStomp,
     disconnectStomp,
     isStompConnected,
     subscribeStomp,
     publishStomp,
-} from "../../services/common/stompClient.js"; // 경로는 네 폴더에 맞게 조정
+} from "../../services/common/stompClient.js";
 
 export default function ChatStompTest() {
     const subRef = useRef(null);
@@ -13,39 +14,38 @@ export default function ChatStompTest() {
     const [connected, setConnected] = useState(false);
     const [roomIndex, setRoomIndex] = useState(1);
     const [message, setMessage] = useState("");
-    const [logs, setLogs] = useState([]);
 
-    const addLog = (text) => {
-        setLogs((prev) => [`${new Date().toLocaleTimeString()}  ${text}`, ...prev]);
-    };
+    const [messages, setMessages] = useState([]);
+    const [beforeIndex, setBeforeIndex] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
 
     const connect = () => {
         const token = localStorage.getItem("accessToken");
         if (!token) {
-            addLog("accessToken 없음: 로그인 후 토큰 저장 확인 필요");
+            console.log("STOMP connect failed: accessToken 없음");
+            return;
+        }
+
+        if (isStompConnected()) {
+            console.log("이미 STOMP 연결됨");
+            setConnected(true);
             return;
         }
 
         connectStomp({
             onConnect: () => {
+                console.log("STOMP 연결 성공");
                 setConnected(true);
-                addLog("STOMP 연결 성공");
             },
             onDisconnect: () => {
+                console.log("STOMP 연결 해제");
                 setConnected(false);
-                addLog("STOMP 연결 해제");
             },
             onError: (e) => {
-                // stomp error frame 또는 websocket error 이벤트가 올 수 있음
-                if (e?.body || e?.headers) {
-                    addLog(`STOMP ERROR: ${e.headers?.message || ""} ${e.body || ""}`);
-                } else {
-                    addLog(`WebSocket ERROR: ${String(e)}`);
-                }
+                console.error("STOMP ERROR", e);
             },
         });
-
-        addLog("STOMP 연결 시도");
     };
 
     const disconnect = () => {
@@ -56,19 +56,80 @@ export default function ChatStompTest() {
             console.log(e);
         }
         disconnectStomp();
+
         setConnected(false);
-        addLog("STOMP 연결 종료 요청");
+        setMessages([]);
+        setBeforeIndex(null);
+        setHasMore(true);
+
+        console.log("STOMP 연결 종료");
     };
 
-    const subscribeRoom = () => {
+    const loadInitialMessages = async (targetRoomIndex) => {
+        setLoading(true);
+        try {
+            const res = await chatService.getMessages(targetRoomIndex);
+            const list = Array.isArray(res.data) ? res.data : [];
+
+            setMessages(list);
+
+            if (list.length > 0) {
+                setBeforeIndex(list[0].index);
+                setHasMore(true);
+            } else {
+                setBeforeIndex(null);
+                setHasMore(false);
+            }
+
+            console.log("초기 메시지 로드:", list.length);
+        } catch (e) {
+            console.error("초기 메시지 로드 실패", e);
+            setMessages([]);
+            setBeforeIndex(null);
+            setHasMore(false);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const loadMore = async () => {
+        const targetRoomIndex = Number(roomIndex);
+        if (!targetRoomIndex || targetRoomIndex <= 0) return;
+        if (!hasMore || loading) return;
+        if (beforeIndex == null) return;
+
+        setLoading(true);
+        try {
+            const res = await chatService.getMessages(targetRoomIndex, beforeIndex);
+            const list = Array.isArray(res.data) ? res.data : [];
+
+            if (list.length === 0) {
+                setHasMore(false);
+                console.log("이전 메시지 없음");
+                return;
+            }
+
+            setMessages((prev) => [...list, ...prev]);
+            setBeforeIndex(list[0].index);
+
+            console.log("이전 메시지 로드:", list.length);
+        } catch (e) {
+            console.error("이전 메시지 로드 실패", e);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const subscribeRoom = async () => {
+        const targetRoomIndex = Number(roomIndex);
+
         if (!isStompConnected()) {
-            addLog("구독 실패: STOMP 미연결");
+            console.log("구독 실패: STOMP 미연결");
             return;
         }
 
-        const ri = Number(roomIndex);
-        if (!ri || ri <= 0) {
-            addLog("roomIndex가 올바르지 않음");
+        if (!targetRoomIndex || targetRoomIndex <= 0) {
+            console.log("roomIndex 잘못됨");
             return;
         }
 
@@ -79,53 +140,40 @@ export default function ChatStompTest() {
             console.log(e);
         }
 
-        const dest = `/topic/chat/room/${ri}`;
-        subRef.current = subscribeStomp(dest, (msg) => {
-            try {
-                const body = JSON.parse(msg.body);
-                addLog(`수신(${dest}): ${JSON.stringify(body)}`);
-            } catch (e) {
-                addLog(`수신(${dest}): ${msg.body}`);
-                console.log(e);
-            }
+        setMessages([]);
+        setBeforeIndex(null);
+        setHasMore(true);
+
+        await loadInitialMessages(targetRoomIndex);
+
+        const dest = `/topic/chat/room/${targetRoomIndex}`;
+        subRef.current = subscribeStomp(dest, (body) => {
+            setMessages((prev) => [...prev, body]);
+            console.log("실시간 메시지 수신", body);
         });
 
-        if (!subRef.current) {
-            addLog("구독 실패: subscribe 반환값 null (연결 상태 확인)");
-            return;
-        }
-
-        addLog(`구독 성공: ${dest}`);
+        console.log("구독 완료:", dest);
     };
 
     const send = () => {
         if (!isStompConnected()) {
-            addLog("전송 실패: STOMP 미연결");
+            console.log("전송 실패: STOMP 미연결");
             return;
         }
 
         const trimmed = message.trim();
-        if (!trimmed) {
-            addLog("전송 실패: message 비었음");
-            return;
-        }
+        if (!trimmed) return;
 
-        const payload = {
+        publishStomp("/app/chat/send", {
             roomIndex: Number(roomIndex),
             message: trimmed,
-        };
+        });
 
-        const ok = publishStomp("/app/chat/send", payload);
-        if (!ok) {
-            addLog("전송 실패: publish 실패 (연결 상태 확인)");
-            return;
-        }
-
-        addLog(`전송: ${JSON.stringify(payload)}`);
         setMessage("");
     };
 
     useEffect(() => {
+        setConnected(isStompConnected());
         return () => {
             disconnect();
         };
@@ -136,30 +184,30 @@ export default function ChatStompTest() {
         <div style={{ padding: 16 }}>
             <h2>Chat STOMP Test</h2>
 
-            <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 12 }}>
-                <button onClick={connect} disabled={connected}>
-                    CONNECT
-                </button>
-                <button onClick={disconnect} disabled={!connected}>
-                    DISCONNECT
-                </button>
-                <span>{connected ? "connected" : "disconnected"}</span>
-            </div>
+            <button onClick={connect} disabled={connected}>
+                CONNECT
+            </button>
+            <button onClick={disconnect} disabled={!connected}>
+                DISCONNECT
+            </button>
 
-            <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 12 }}>
-                <label>roomIndex</label>
+            <div style={{ marginTop: 12 }}>
+                roomIndex
                 <input
                     type="number"
                     value={roomIndex}
                     onChange={(e) => setRoomIndex(e.target.value)}
-                    style={{ width: 120 }}
+                    style={{ width: 120, marginLeft: 8 }}
                 />
-                <button onClick={subscribeRoom} disabled={!connected}>
-                    SUBSCRIBE ROOM
+                <button onClick={subscribeRoom} disabled={!connected || loading} style={{ marginLeft: 8 }}>
+                    SUBSCRIBE
+                </button>
+                <button onClick={loadMore} disabled={!connected || loading || !hasMore} style={{ marginLeft: 8 }}>
+                    LOAD MORE
                 </button>
             </div>
 
-            <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 12 }}>
+            <div style={{ marginTop: 12 }}>
                 <input
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
@@ -169,17 +217,21 @@ export default function ChatStompTest() {
                         if (e.key === "Enter") send();
                     }}
                 />
-                <button onClick={send} disabled={!connected}>
+                <button onClick={send} disabled={!connected} style={{ marginLeft: 8 }}>
                     SEND
                 </button>
             </div>
 
-            <div style={{ border: "1px solid #ddd", padding: 12, height: 360, overflow: "auto" }}>
-                {logs.map((l, idx) => (
-                    <div key={idx} style={{ fontFamily: "monospace", marginBottom: 6 }}>
-                        {l}
+            <div style={{ border: "1px solid #ddd", marginTop: 12, height: 360, overflow: "auto", padding: 12 }}>
+                {messages.map((m) => (
+                    <div key={m.index} style={{ marginBottom: 10 }}>
+                        <div style={{ fontSize: 12, opacity: 0.8 }}>
+                            {m.senderName} ({m.senderTeamName}/{m.senderRoleName}){m.mine ? " (me)" : ""}
+                        </div>
+                        <div style={{ fontSize: 14 }}>{m.message}</div>
                     </div>
                 ))}
+                {loading ? <div>loading...</div> : null}
             </div>
         </div>
     );

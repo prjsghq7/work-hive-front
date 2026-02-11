@@ -76,10 +76,26 @@ export function isStompConnected() {
 export function subscribeStomp(destination, onMessage, headers = {}) {
     if (!stomp?.connected) return null;
 
-    return stomp.subscribe(destination, (message) => {
-        // message.body는 문자열(JSON)일 확률이 큼
-        onMessage?.(message);
-    }, headers);
+    return stomp.subscribe(
+        destination,
+        (message) => {
+            try {
+                // 일반적으로는 여기로 들어옴 (string)
+                if (typeof message.body === "string") {
+                    const parsed = message.body ? JSON.parse(message.body) : null;
+                    onMessage?.(parsed);
+                    return;
+                }
+
+                console.log("subscribeStomp: unknown message shape", message);
+                onMessage?.(null);
+            } catch (e) {
+                console.error("subscribeStomp parse failed", e, message);
+                onMessage?.(null);
+            }
+        },
+        headers
+    );
 }
 
 /**
