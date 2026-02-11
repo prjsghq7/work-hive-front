@@ -39,6 +39,8 @@ function Home() {
     console.log(isLoggedIn);
     const [filter, setFilter] = useState("일정");
 
+
+
     return (
         <div className="home-container">
             <div className="home-notice-section">
@@ -55,7 +57,7 @@ function Home() {
             <div className="home-main-grid">
                 <div className="home-profile-section">
                     {isLoggedIn ? (<button onClick={handleLogout}>로그아웃</button>) : (
-                        <button onClick={() => navigate("/user/login")}>로그인</button>)}
+                        <button onClick={() => navigate("/")}>로그인</button>)}
                 </div>
                 <div className="home-weather-section">날씨</div>
                 <div className="home-chat-section">채팅</div>

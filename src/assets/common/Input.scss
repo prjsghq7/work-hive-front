@@ -1,172 +1,250 @@
 @import "../Def.scss";
 
-/* Filter Box */
-.filter-box {
+/* ===============================
+   Input Box (Wrapper)
+================================ */
+.input-box {
   width: 100%;
-  padding: 1.25rem 1.5rem;
+  padding: 1.5rem 1.75rem;
   background-color: #ffffff;
-  border-radius: 0.5rem;
-  border: 0.0625rem solid var(--deep-light);
-}
-
-/* Layout */
-.filter-form {
+  border-radius: 0.75rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(15, 23, 42, 0.06);
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  height: 100%;
+
+  &.height {
+    height: 100%;
+  }
 }
 
-.filter-fields {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  gap: 1rem 1.25rem;
-}
-
-/* Input Set */
-.filter-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-/* Label */
-.filter-input-label {
-  font-size: 0.6875rem; /* 11px */
+.input-title {
+  margin: 0 0 1.125rem;
+  font-size: 1.75rem;
   font-weight: 600;
-  color: var(--low-dark);
-  letter-spacing: 0.02em;
-}
-
-/* Input / Select */
-.filter-input,
-.filter-select {
-  width: 100%;
-  height: 2.5rem;
-  padding: 0;
-  font-size: 0.875rem;
-  color: var(--deep-dark);
-  background-color: transparent;
-  border: none;
-  border-bottom: 0.125rem solid var(--deep-light);
-  border-radius: 0;
-  transition: border-color 0.2s ease;
-}
-
-/* Placeholder */
-.filter-input::placeholder {
-  color: #94A3B8;
-  font-size: 0.8125rem;
-}
-
-/* Hover */
-.filter-input:hover,
-.filter-select:hover {
-  border-bottom-color: var(--low-dark);
-}
-
-/* Focus */
-.filter-input:focus,
-.filter-select:focus {
-  border-bottom-color: var(--low-light);
-}
-
-/* Disabled */
-.filter-input:disabled,
-.filter-select:disabled {
-  border-bottom-color: #CBD5E1;
-  color: #94A3B8;
-}
-
-/* Select Arrow */
-.filter-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%230F4C75' viewBox='0 0 16 16'%3E%3Cpath d='M1.5 5.5l6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0 center;
-  background-size: 0.625rem;
-  padding-right: 1rem;
+  color: $global-color-deep-dark;
 }
 
 /* ===============================
-   Checkbox (공용)
+   Input Layout
 ================================ */
+.input-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  height: 100%;
+}
 
-.filter-checkbox {
+.input-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.input-field-full {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* ===============================
+   Label
+================================ */
+.input-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $global-color-low-dark;
+}
+
+/* ===============================
+   Input / Select
+================================ */
+.input-input,
+.input-select {
+  height: 2.375rem;
+  padding: 0 0.625rem;
+  font-size: 0.875rem;
+  color: $global-color-deep-dark;
+  background-color: transparent;
+
+  /* 기본 라인 */
+  border: 0.0625rem solid $global-color-deep-light;
+  border-radius: 0.5rem;
+
+  outline: none;
+  box-sizing: border-box;
+
+  transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease,
+          background-color 0.2s ease;
+}
+
+.input-input::placeholder {
+  color: #94a3b8;
+  font-size: 0.8125rem;
+}
+
+/* hover */
+.input-input:hover,
+.input-select:hover {
+  border-color: $global-color-low-dark;
+}
+
+/* focus */
+.input-input:focus,
+.input-select:focus {
+  border-color: $global-color-low-light;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 0.125rem rgba(50, 130, 184, 0.2);
+}
+
+/* disabled */
+.input-input:disabled,
+.input-select:disabled {
+  color: #94a3b8;
+  border-color: #cbd5e1;
+  background-color: #f1f5f9;
+}
+
+/* select arrow */
+.input-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%230F4C75' viewBox='0 0 16 16'%3E%3Cpath d='M1.5 5.5l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 0.625rem;
+  padding-right: 2rem;
+}
+
+/* ===============================
+   Textarea
+================================ */
+.input-textarea {
+  width: 100%;
+  height: 100%;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  color: $global-color-deep-dark;
+  background-color: transparent;
+
+  border: 0.0625rem solid $global-color-deep-light;
+  border-radius: 0.5rem;
+
+  outline: none;
+  resize: vertical;
+  box-sizing: border-box;
+
+  transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease,
+          background-color 0.2s ease;
+}
+
+.input-textarea::placeholder {
+  color: #94a3b8;
+  font-size: 0.8125rem;
+}
+
+.input-textarea:hover {
+  border-color: $global-color-low-dark;
+}
+
+.input-textarea:focus {
+  border-color: $global-color-low-light;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 0.125rem rgba(50, 130, 184, 0.2);
+}
+
+.input-textarea:disabled {
+  color: #94a3b8;
+  border-color: #cbd5e1;
+  background-color: #f1f5f9;
+}
+
+/* ===============================
+   Checkbox
+================================ */
+.input-checkbox {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-/* input 숨기기 */
-.filter-checkbox-input {
+.input-checkbox-input {
   position: absolute;
   opacity: 0;
   pointer-events: none;
 }
 
-/* label = 실제 UI */
-.filter-checkbox-label {
+.input-checkbox-label {
   position: relative;
   padding-left: 1.5rem;
   font-size: 0.8125rem;
   font-weight: 500;
-  color: var(--deep-dark);
+  color: $global-color-deep-dark;
   cursor: pointer;
   user-select: none;
 }
 
-/* box */
-.filter-checkbox-label::before {
+.input-checkbox-label::before {
   content: "";
   position: absolute;
   left: 0;
   top: 50%;
   width: 1rem;
   height: 1rem;
-  border: 0.0625rem solid var(--low-dark);
+  border: 0.0625rem solid $global-color-low-dark;
   border-radius: 0.25rem;
-  background-color: #fff;
+  background-color: #ffffff;
   transform: translateY(-50%);
-  transition: border-color 0.2s ease, background-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-/* check mark */
-.filter-checkbox-label::after {
+.input-checkbox-label::after {
   content: "";
   position: absolute;
   left: 0.3125rem;
   top: 50%;
   width: 0.375rem;
   height: 0.625rem;
-  border-right: 0.125rem solid #fff;
-  border-bottom: 0.125rem solid #fff;
+  border-right: 0.125rem solid #ffffff;
+  border-bottom: 0.125rem solid #ffffff;
   transform: translateY(-55%) rotate(45deg);
   opacity: 0;
   transition: opacity 0.15s ease;
 }
 
-/* checked */
-.filter-checkbox-input:checked + .filter-checkbox-label::before {
-  background-color: var(--low-dark);
-  border-color: var(--low-dark);
+.input-checkbox-input:checked + .input-checkbox-label::before {
+  background-color: $global-color-low-dark;
+  border-color: $global-color-low-dark;
 }
 
-.filter-checkbox-input:checked + .filter-checkbox-label::after {
+.input-checkbox-input:checked + .input-checkbox-label::after {
   opacity: 1;
 }
 
-/* hover */
-.filter-checkbox-label:hover::before {
-  border-color: var(--low-light);
+/* ===============================
+   Actions / Error
+================================ */
+.input-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
 
-/* disabled */
-.filter-checkbox-input:disabled + .filter-checkbox-label {
-  color: #94A3B8;
-  cursor: not-allowed;
-}
-
-.filter-checkbox-input:disabled + .filter-checkbox-label::before {
-  background-color: #F1F5F9;
-  border-color: #CBD5E1;
+.input-error {
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+  color: #dc2626;
 }

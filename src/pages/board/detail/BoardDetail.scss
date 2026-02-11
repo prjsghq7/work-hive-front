@@ -4,9 +4,10 @@
     background: #fff;
     padding: 2rem;
     border-radius: 0.8rem;
-    box-shadow: 0 0 1rem rgba(0,0,0,0.05);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05);
 
     .board-title-box {
+      width: 100%;
       align-items: flex-start;
       display: flex;
       justify-content: flex-start;
@@ -23,11 +24,18 @@
     }
 
     .detail-info {
+      border-bottom: 0.0625rem solid #dddddd;
       display: flex;
       gap: 2rem;
-      font-size: 1.2rem;
+      padding-bottom: 1rem;
+      width: 100%;
+      font-size: 1rem;
       color: #666;
       margin-bottom: 2rem;
+
+      > p > .board-text {
+        font-weight: 1000;
+      }
 
       span {
         white-space: nowrap;
@@ -35,6 +43,7 @@
     }
 
     .detail-content {
+      height: 100%;
       font-size: 1.4rem;
       line-height: 1.8rem;
       margin-bottom: 3rem;
@@ -54,4 +63,8 @@
       }
     }
   }
+}
+
+.button-wrapper {
+  width: 100%;
 }

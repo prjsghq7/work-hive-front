@@ -5,6 +5,7 @@
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05);
 }
 .board-container .board-card .board-title-box {
+  width: 100%;
   align-items: flex-start;
   display: flex;
   justify-content: flex-start;
@@ -18,16 +19,23 @@
   font-weight: bold;
 }
 .board-container .board-card .detail-info {
+  border-bottom: 0.0625rem solid #dddddd;
   display: flex;
   gap: 2rem;
-  font-size: 1.2rem;
+  padding-bottom: 1rem;
+  width: 100%;
+  font-size: 1rem;
   color: #666;
   margin-bottom: 2rem;
+}
+.board-container .board-card .detail-info > p > .board-text {
+  font-weight: 1000;
 }
 .board-container .board-card .detail-info span {
   white-space: nowrap;
 }
 .board-container .board-card .detail-content {
+  height: 100%;
   font-size: 1.4rem;
   line-height: 1.8rem;
   margin-bottom: 3rem;
@@ -43,6 +51,10 @@
   background: #4e73df;
   color: white;
   font-weight: bold;
+}
+
+.button-wrapper {
+  width: 100%;
 }
 
 /*# sourceMappingURL=BoardDetail.css.map */

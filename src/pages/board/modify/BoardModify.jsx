@@ -1,42 +1,43 @@
-import {useState, useEffect} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import "../../../assets/common/Table.min.css";
 import "../../../assets/Common.min.css";
-import "./BoardModify.min.css"
+import "../../../assets/common/Input.min.css";
+import "./BoardModify.min.css";
 
 import axios from "axios";
-import {useApi} from "../../../hooks/useApi";
-import {API_BASE_URL} from "../../../configs/apiConfig";
+import { useApi } from "../../../hooks/useApi";
+import { API_BASE_URL } from "../../../configs/apiConfig";
 
 function BoardModify() {
     const navigate = useNavigate();
-    const {id} = useParams();
-
-    const {data, run} = useApi();
+    const { id } = useParams();
+    const { data, run } = useApi();
 
     const [type, setType] = useState("");
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
-    // 상세 정보 불러오기
+    // 상세 데이터 조회
     useEffect(() => {
-        run(() => axios.get(`${API_BASE_URL}/board/${id}`));
+        run(() => axios.get(`${API_BASE_URL}/board/detail/${id}`));
     }, [id, run]);
 
-    // 데이터가 들어오면 input에 자동 세팅
+    // 데이터 세팅
     useEffect(() => {
         if (data?.data?.board) {
-            const b = data.data.board;
-            console.log(data)
 
+            // console.log("API raw data:", data);
+            const b = data.data.board;
             setType(b.type);
             setTitle(b.title);
             setContent(b.content);
         }
     }, [data]);
 
-    // 저장하기
+    const board = data?.data?.board;
+
+    // 수정 저장
     const handleModify = async (e) => {
         e.preventDefault();
 
@@ -48,18 +49,21 @@ function BoardModify() {
             })
         );
 
-        alert("게시글이 수정되었습니다!");
+        alert("게시글이 수정되었습니다.");
         navigate(`/board/detail/${id}`);
     };
 
     return (
-        <form className="filter-box filter-form" onSubmit={handleModify}>
-            <div className="filter-fields">
+        <form className="input-box input-form height" onSubmit={handleModify}>
+            <h2 className="input-title">게시글 수정</h2>
 
-                <div className="filter-field">
-                    <label className="filter-input-label">카테고리</label>
+            <div className="input-fields">
+
+                {/* 카테고리 */}
+                <div className="input-field">
+                    <label className="input-label">카테고리</label>
                     <select
-                        className="filter-select"
+                        className="input-select"
                         value={type}
                         onChange={(e) => setType(e.target.value)}
                     >
@@ -68,32 +72,42 @@ function BoardModify() {
                     </select>
                 </div>
 
-                <div className="filter-field">
-                    <label className="filter-input-label">제목</label>
+                {/* 제목 */}
+                <div className="input-field">
+                    <label className="input-label">제목</label>
                     <input
                         type="text"
-                        className="filter-input"
+                        className="input-input"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        placeholder="제목을 입력하세요"
                     />
                 </div>
 
-                <div className="filter-field" style={{gridColumn: "1 / -1"}}>
-                    <label className="filter-input-label">내용</label>
+                {/* 내용 */}
+                <div className="input-field-full">
+                    <label className="input-label">내용</label>
                     <textarea
-                        className="filter-input textarea-box"
+                        className="input-textarea"
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
+                        placeholder="내용을 입력하세요"
                     />
                 </div>
-
             </div>
 
+            {/* 버튼 */}
             <div className="button-wrapper">
-                <button type="button" className="-button --white" onClick={() => navigate(-1)}>
-                    뒤로가기
+                <button
+                    type="button"
+                    className="-button --white"
+                    onClick={() => navigate(-1)}
+                >
+                    취소
                 </button>
-                <button type="submit" className="-button --blue">수정하기</button>
+                <button type="submit" className="-button --blue">
+                    수정하기
+                </button>
             </div>
         </form>
     );

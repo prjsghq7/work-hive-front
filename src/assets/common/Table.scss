@@ -1,6 +1,8 @@
 @import "../Def.scss";
 
 .board-container {
+  height: 100%;
+
   .board-search-box {
     display: flex;
     max-width: 30rem;
@@ -46,15 +48,18 @@
   }
 
   .board-card {
+    height: 100%;
     background: white;
     padding: 1rem;
     border-radius: 0.8rem;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05);
+    flex-direction: column;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1rem;
 
     .board-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       margin-bottom: 1rem;
 
       .board-card-title {
@@ -81,7 +86,7 @@
       table-layout: auto;
 
       th {
-        background: $global-color-low-dark;
+        background: #2563eb;
         padding: 1rem;
         color: $global-color-deep-light;
         font-weight: bold;
@@ -132,4 +137,16 @@
       }
     }
   }
+}
+
+.board-empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1rem;
+  color: #9ca3af;
+  font-weight: 500;
 }

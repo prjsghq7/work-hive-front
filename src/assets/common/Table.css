@@ -1,5 +1,6 @@
 @charset "UTF-8";
 .board-container {
+  height: 100%;
   /* 반응형 */
 }
 .board-container .board-search-box {
@@ -42,15 +43,18 @@
   margin-bottom: 1rem;
 }
 .board-container .board-card {
+  height: 100%;
   background: white;
   padding: 1rem;
   border-radius: 0.8rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05);
+  flex-direction: column;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1rem;
 }
 .board-container .board-card .board-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin-bottom: 1rem;
 }
 .board-container .board-card .board-header .board-card-title {
@@ -74,7 +78,7 @@
   table-layout: auto;
 }
 .board-container .board-card .board-table th {
-  background: #0F4C75;
+  background: #2563eb;
   padding: 1rem;
   color: #BBE1FA;
   font-weight: bold;
@@ -111,6 +115,18 @@
   .board-container .board-card .board-table td {
     padding: 1.5rem;
   }
+}
+
+.board-empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1rem;
+  color: #9ca3af;
+  font-weight: 500;
 }
 
 /*# sourceMappingURL=Table.css.map */

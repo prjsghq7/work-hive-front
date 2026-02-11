@@ -27,6 +27,7 @@ const LeaveList = lazy(() => import("./pages/leave/list/LeaveList.jsx"));
 
 const ScheduleMain = lazy(() => import("./pages/schedule/main/ScheduleMain.jsx"));
 
+const Private = lazy(()=> import("./components/Private.jsx"))
 const BoardAll = lazy(() => import("./pages/board/all/BoardAll.jsx"));
 const BoardNotice = lazy(() => import("./pages/board/notice/BoardNotice.jsx"));
 const BoardFamilyEvent = lazy(() => import("./pages/board/familyEvent/BoardFamilyEvent.jsx"));
@@ -55,20 +56,14 @@ function App() {
 
                         <Route path="schedule/main" element={<ScheduleMain/>}></Route>
 
-                        <Route path="board/all" element={<BoardAll/>}></Route>
-                        <Route path="board/notice" element={<BoardNotice/>}></Route>
-                        <Route path="board/family-event" element={<BoardFamilyEvent/>}></Route>
-                        <Route path="board/new" element={<BoardNew/>}></Route>
-                        <Route path="board/detail/:id" element={<BoardDetail/>}></Route>
-                        <Route path="board/modify/:id" element={<BoardModify/>}></Route>
-                        <Route
-                            path="/user/edit"
-                            element={
-                                <RequireAuth>
-                                    <Mypage/>
-                                </RequireAuth>
-                            }
-                        />
+                        <Route path="board/all" element={<Private> <BoardAll/> </Private>}/>
+                        <Route path="board/notice" element={<Private> <BoardNotice/> </Private>}/>
+                        <Route path="board/family-event" element={<Private> <BoardFamilyEvent/> </Private>}/>
+                        <Route path="board/new" element={<Private> <BoardNew/> </Private>}/>
+                        <Route path="board/detail/:id" element={<Private> <BoardDetail/> </Private>}/>
+                        <Route path="board/modify/:id" element={<Private> <BoardModify/> </Private>}/>
+
+                        <Route path="/user/edit" element={<RequireAuth> <Mypage/> </RequireAuth>}/>
                     </Route>
                 </Routes>
             </Suspense>
