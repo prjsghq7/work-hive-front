@@ -9,3 +9,4 @@ if (hostname==="localhost") {
 }
 
 export const API_BASE_URL = `${backend}`;
+export const WS_BASE_URL = `${backend}/ws`;
