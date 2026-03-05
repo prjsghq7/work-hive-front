@@ -3,10 +3,13 @@ import { useState, useEffect } from "react";
 import UserSearchModal from "../user/UserSearchModal.jsx";
 import { useAuth } from "../../pages/user/AuthContext.jsx";
 import { useDialog } from "../../contexts/modal/DialogContext.jsx";
+import { useApi } from "../../hooks/useApi.js";
+import { scheduleService } from "../../services/schedule/scheduleService.js";
 
 export default function ScheduleRequestModal({ onClose, onSuccess, initialStartDate }) {
     const { user } = useAuth();
     const { openDialog } = useDialog();
+    const { run, loading } = useApi();
 
     const [formData, setFormData] = useState({
         title: "",
@@ -28,19 +31,21 @@ export default function ScheduleRequestModal({ onClose, onSuccess, initialStartD
             const hasMe = prev.some((p) => String(p.memberId) === currentUserId);
             if (hasMe) {
                 return prev.map((p) =>
-                    String(p.memberId) === currentUserId ? { ...p, name: user?.name || p.name, teamName: user?.teamName ?? p.teamName } : p
+                    String(p.memberId) === currentUserId
+                        ? { ...p, name: user?.name || p.name, teamName: user?.teamName ?? p.teamName, teamCode: user?.teamCode ?? p.teamCode ?? null }
+                        : p
                 );
             }
             const me = {
                 memberId: currentUserId,
                 name: user?.name || "나",
-                teamCode: user?.teamCode ?? user?.team_code ?? 0,
+                teamCode: user?.teamCode ?? null,
                 teamName: user?.teamName || "",
                 isManager: false
             };
             return [me, ...prev];
         });
-    }, [currentUserId, user?.name, user?.teamCode, user?.team_code, user?.teamName]);
+    }, [currentUserId, user?.name, user?.teamCode, user?.teamName]);
 
     // 시작일 변경 시 종료일 검증
     useEffect(() => {
@@ -70,7 +75,7 @@ export default function ScheduleRequestModal({ onClose, onSuccess, initialStartD
                 {
                     memberId,
                     name: selectedUser.name || "",
-                    teamCode: selectedUser.teamCode ?? selectedUser.team_code ?? 0,
+                    teamCode: selectedUser.teamCode ?? null,
                     teamName: selectedUser.teamName || "",
                     isManager: false
                 }
@@ -91,7 +96,7 @@ export default function ScheduleRequestModal({ onClose, onSuccess, initialStartD
         );
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (dateError) {
             openDialog("일정 추가", dateError, "warning");
@@ -114,19 +119,24 @@ export default function ScheduleRequestModal({ onClose, onSuccess, initialStartD
             state: formData.state,
             title: formData.title.trim(),
             detail: formData.detail.trim(),
-            start_date: formData.start_date,
-            end_date: formData.end_date,
+            startDate: formData.start_date,
+            endDate: formData.end_date,
             members: participants.map((p) => ({
-                member_id: p.memberId,
-                user_team_code: p.teamCode,
-                is_manager: p.isManager
+                memberId: p.memberId,
+                userTeamCode: p.teamCode,
+                isManager: p.isManager
             }))
         };
 
-        // TODO: 일정 추가 기능 구현 필요
-        console.log("ScheduleRequestModal submit", payload);
-        onClose();
-        if (onSuccess) onSuccess();
+        try {
+            await run(() => scheduleService.register(payload));
+            openDialog("일정 추가", "일정이 등록되었습니다.", "success");
+            onClose();
+            if (onSuccess) onSuccess();
+        } catch (err) {
+            const errorMessage = err?.response?.data?.message || "일정 등록에 실패했습니다.";
+            openDialog("일정 등록 실패", errorMessage, "warning");
+        }
     };
 
     return (
@@ -253,9 +263,9 @@ export default function ScheduleRequestModal({ onClose, onSuccess, initialStartD
                             <button
                                 type="submit"
                                 className="-button --blue"
-                                disabled={!!dateError}
+                                disabled={!!dateError || loading}
                             >
-                                등록
+                                {loading ? "등록 중..." : "등록"}
                             </button>
                         </div>
                     </form>
