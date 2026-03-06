@@ -1,5 +1,4 @@
 import "./BoardAll.min.css"
-
 import { Link } from "react-router-dom";
 import { useApi } from "../../../hooks/useApi.js";
 import { useAuth } from "../../user/AuthContext.jsx";
