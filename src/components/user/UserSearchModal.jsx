@@ -22,13 +22,10 @@ function UserSearchModal({ isOpen, onClose, onSelect }) {
 
     // 승인자 검색 함수
     const handleSearch = async () => {
-        if (!searchName.trim()) {
-            openDialog("검색", "이름을 입력해주세요.", "warning");
-            return;
-        }
-
         try {
-            const res = await runSearch(() => searchService.search(searchName, 0, 0));
+            // 이름이 비어있으면 전체 사용자 검색, 있으면 해당 이름으로 검색
+            const searchQuery = searchName.trim() || "";
+            const res = await runSearch(() => searchService.search(searchQuery, 0, 0));
             setSearchResults(res.data.userList || []);
             setHasSearched(true); // 검색 실행 표시
         } catch (err) {
@@ -51,7 +48,7 @@ function UserSearchModal({ isOpen, onClose, onSelect }) {
         <div className="modal-overlay" onClick={handleClose}>
             <div className="modal user-search-modal" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
-                    <h3 className="modal-title">승인자 검색</h3>
+                    <h3 className="modal-title">사용자 검색</h3>
                     <span className="modal-stretch"></span>
                     <button
                         className="modal-close"
@@ -67,7 +64,7 @@ function UserSearchModal({ isOpen, onClose, onSelect }) {
                         <input
                             className="user-search-search-input"
                             type="text"
-                            placeholder="이름을 입력하세요"
+                            placeholder="이름을 입력하세요 (비워두면 전체 검색)"
                             value={searchName}
                             onChange={(e) => setSearchName(e.target.value)}
                             onKeyPress={(e) => {
@@ -90,7 +87,7 @@ function UserSearchModal({ isOpen, onClose, onSelect }) {
                     <div className="user-search-search-results">
                         {!hasSearched ? (
                             <div className="user-search-no-results">
-                                이름을 입력하고 찾아보기를 클릭하세요.
+                                찾아보기를 클릭하면 전체 사용자가 표시됩니다. 특정 사용자를 찾으려면 이름을 입력하세요.
                             </div>
                         ) : searchResults.length === 0 ? (
                             <div className="user-search-no-results">

@@ -23,12 +23,12 @@ function ScheduleMain() {
     ];
 
     // 일정 상태에 따라 FullCalendar용 색상 클래스
-    const getColorClass = (state) => {
-        if (state === 1) return "green";   // 예정
-        if (state === 2) return "blue";   // 진행중
-        if (state === 3) return "orange"; // 보류
-        if (state === 4) return "gray";   // 완료
-        return "green";
+    const getColorClass = (typeText) => {
+        if (typeText === "예정") return "green";
+        if (typeText === "진행중") return "blue";
+        if (typeText === "보류") return "orange";
+        if (typeText === "완료") return "gray";
+        return "green"; // 기본값
     };
 
     const fetchCalendar = async () => {
@@ -39,15 +39,16 @@ function ScheduleMain() {
 
             const list = Array.isArray(fetchedList) ? fetchedList : [];
             const mapped = list.map((item) => {
-                const end = new Date(item.end_date);
+                const end = new Date(item.endDate);
                 end.setDate(end.getDate() + 1);
                 return {
                     id: `schedule-${item.index}`,
                     title: item.title,
-                    start: item.start_date,
+                    start: item.startDate,
                     end: end.toISOString().split("T")[0],
                     allDay: true,
-                    className: getColorClass(item.state)
+                    className: getColorClass(item.typeText),
+                    calendarType: item.calendarType
                 };
             });
             setEvents(mapped);
